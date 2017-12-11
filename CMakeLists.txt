@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_subdirectory(bintree)
 
-set(SOURCE_FILES main.cpp avltree/AvlTree.cpp avltree/AvlTree.h)
+set(SOURCE_FILES main.cpp avltree/AvlTree.cpp avltree/AvlTree.h test/main.cpp test/testAvlTree.cpp test/testAvlTree.h)
 add_executable(Main ${SOURCE_FILES})
 
 target_link_libraries(Main LINK_PUBLIC bintree)
