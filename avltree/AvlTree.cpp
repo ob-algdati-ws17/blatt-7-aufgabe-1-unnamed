@@ -6,28 +6,53 @@
 
 using namespace ::std;
 
-AvlTree::Node::Node(const int k) : key(k) {}
+AvlTree::Node::Node(const int k, const int h) : key(k), height(h) {}
 
-AvlTree::Node::Node(const int k, Node *l, Node *r)
-        : key(k), left(l), right(r) {}
+//Constructor for Node
+AvlTree::Node::Node(const int k, const int h, Node *l, Node *r)
+        : key(k), height(h), left(l), right(r) {}
 
+//Destructor for node
 AvlTree::Node::~Node() {
     delete left;
     delete right;
 }
 
+//Destructor for complete tree
 AvlTree::~AvlTree() {
     delete root;
+}
+
+
+bool AvlTree::isEmpty() const {
+    return root == nullptr;
+}
+
+
+int AvlTree::balance(AvlTree::Node *n) {
+
+    int bal = 0;
+
+    if (n == nullptr) {
+        return 0;
+    }
+    else {
+        bal = n->right->height - n->left->height;
+        return bal;
+    }
 }
 
 /********************************************************************
  * Search
  *******************************************************************/
+
+
 bool AvlTree::search(const int value) const {
     if (root == nullptr)
         return false;
     return root->search(value);
 }
+
 
 bool AvlTree::Node::search(const int value) const {
     if (value == key) return true;
@@ -36,9 +61,11 @@ bool AvlTree::Node::search(const int value) const {
     return false;
 }
 
+
 /********************************************************************
  * Insert
  *******************************************************************/
+/*
 void AvlTree::insert(int value) {
     if (root == nullptr)
         root = new Node(value);
@@ -63,11 +90,13 @@ void AvlTree::Node::insert(int value) {
         else right->insert(value);
     }
 }
+ */
 
 /********************************************************************
  * Remove
  *******************************************************************/
 
+/*
 AvlTree::Node *findSymSucc(AvlTree::Node *node) {
     if (node->right == nullptr)
         return nullptr;
@@ -146,11 +175,12 @@ AvlTree::Node *AvlTree::Node::remove(const int value) {
     // code should not be reached, just to make the compiler happy
     return nullptr;
 }
+*/
 
 /********************************************************************
  * Traversal
  *******************************************************************/
-
+/*
 vector<int> *AvlTree::preorder() const {
     if (root == nullptr)
         return nullptr;
@@ -220,9 +250,12 @@ vector<int> *AvlTree::Node::postorder() const {
     return vec;
 }
 
+*/
+
 /********************************************************************
  * operator<<
  *******************************************************************/
+/*
 std::ostream &operator<<(std::ostream &os, const AvlTree &tree) {
     function<void(std::ostream &, const int, const AvlTree::Node *, const string)> printToOs = [&](std::ostream &os, const int value, const AvlTree::Node *node, const string l) {
 
@@ -250,4 +283,8 @@ std::ostream &operator<<(std::ostream &os, const AvlTree &tree) {
     }
     os << "}" << endl;
     return os;
+
+
 }
+
+ */
