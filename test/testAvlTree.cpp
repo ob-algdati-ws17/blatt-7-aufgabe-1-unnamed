@@ -14,3 +14,10 @@ TEST(TreeTest, Test_EmptyTree) {
     EXPECT_TRUE(avl.isEmpty());
 }
 
+TEST(TreeTest, One_Node) {
+    AvlTree avl;
+    avl.insert(1);
+    EXPECT_FALSE(avl.isEmpty());
+    EXPECT_TRUE(avl.search(1));
+}
+

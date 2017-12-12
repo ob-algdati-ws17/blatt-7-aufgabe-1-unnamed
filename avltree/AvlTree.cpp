@@ -6,11 +6,11 @@
 
 using namespace ::std;
 
-AvlTree::Node::Node(const int k, const int h) : key(k), height(h) {}
+AvlTree::Node::Node(const int k, const int h) : key(k), bal(h) {}
 
 //Constructor for Node
 AvlTree::Node::Node(const int k, const int h, Node *l, Node *r)
-        : key(k), height(h), left(l), right(r) {}
+        : key(k), bal(h), left(l), right(r) {}
 
 //Destructor for node
 AvlTree::Node::~Node() {
@@ -29,17 +29,32 @@ bool AvlTree::isEmpty() const {
 }
 
 
-int AvlTree::balance(AvlTree::Node *n) {
+int AvlTree::calculateBalance(AvlTree::Node *n) {
 
-    int bal = 0;
+    int balance = 0;
 
     if (n == nullptr) {
         return 0;
     }
     else {
-        bal = n->right->height - n->left->height;
-        return bal;
+        balance = getHeight(n->right) - getHeight(n->left);
+        //balance = n->right->bal - n->left->bal;
+        return balance;
     }
+}
+
+
+int AvlTree::getHeight(AvlTree::Node *n){
+    int left, right;
+
+    if(n== nullptr)
+        return 0;
+    left = getHeight(n->left);
+    right = getHeight(n->right);
+    if(left > right)
+        return left+1;
+    else
+        return right+1;
 }
 
 /********************************************************************
@@ -65,10 +80,10 @@ bool AvlTree::Node::search(const int value) const {
 /********************************************************************
  * Insert
  *******************************************************************/
-/*
+
 void AvlTree::insert(int value) {
     if (root == nullptr)
-        root = new Node(value);
+        root = new Node(value, 0);
     else
         root->insert(value);
 }
@@ -79,18 +94,19 @@ void AvlTree::Node::insert(int value) {
 
     if (value < key) {
         if (left == nullptr)
-            left = new Node(value);
+            left = new Node(value, 0);
         else
             left->insert(value);
     }
 
     if (value > key) {
         if (right == nullptr)
-            right = new Node(value);
-        else right->insert(value);
+            right = new Node(value, 0);
+        else
+            right->insert(value);
     }
 }
- */
+
 
 /********************************************************************
  * Remove
@@ -180,7 +196,7 @@ AvlTree::Node *AvlTree::Node::remove(const int value) {
 /********************************************************************
  * Traversal
  *******************************************************************/
-/*
+
 vector<int> *AvlTree::preorder() const {
     if (root == nullptr)
         return nullptr;
@@ -250,7 +266,7 @@ vector<int> *AvlTree::Node::postorder() const {
     return vec;
 }
 
-*/
+
 
 /********************************************************************
  * operator<<

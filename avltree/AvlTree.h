@@ -18,7 +18,7 @@ private:
 
     struct Node {
         const int key;
-        const int height;
+        const int bal;
         Node *left = nullptr;
         Node *right = nullptr;
 
@@ -29,13 +29,15 @@ private:
 
         bool search(const int) const;
 
-        /*
+
         void insert(const int);
+        /*
         Node *remove(const int);
+         */
         vector<int> *preorder() const; // (Hauptreihenfolge)
         vector<int> *inorder() const; // (Symmetrische Reihenfolge)
         vector<int> *postorder() const; // (Nebenreihenfolge)
-         */
+
     };
 
     Node *root = nullptr;
@@ -48,22 +50,27 @@ public:
 
     bool search(const int) const;
 
-    int balance(Node *);
+    int calculateBalance(Node *);
 
-    /*
+    int getHeight(Node *);
 
     void insert(const int);
 
+    /*
+
     void remove(const int);
+
+     */
 
     vector<int> *preorder() const; // (Hauptreihenfolge)
     vector<int> *inorder() const; // (Symmetrische Reihenfolge)
     vector<int> *postorder() const; // (Nebenreihenfolge)
 
+    /*
+
     friend Node *findSymSucc(Node *);
     friend ostream &operator<<(ostream &, const AvlTree &);
-
-     */
+    */
 };
 
 #endif //AVLTREE_AVLTREE_H
