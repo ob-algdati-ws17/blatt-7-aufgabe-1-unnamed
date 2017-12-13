@@ -7,9 +7,9 @@
 
 using namespace ::std;
 
-AvlTree::Node::Node(const int k, const int h) : key(k), bal(h) {}
+AvlTree::Node::Node(const int k, int h) : key(k), bal(h) {}
 
-AvlTree::Node::Node(const int k, const int h, Node *l, Node *r)
+AvlTree::Node::Node(const int k, int h, Node *l, Node *r)
         : key(k), bal(h), left(l), right(r) {}
 
 AvlTree::Node::~Node() {
@@ -26,53 +26,72 @@ bool AvlTree::isEmpty() const {
 }
 
 bool AvlTree::isBalanced() {
-    if (calculateBalance(root) <= 1 || calculateBalance(root) >= -1) {
+    if (root == nullptr) {
         return true;
     }
+    return root->isBalanced(root);
+}
+
+bool AvlTree::Node::isBalanced(AvlTree::Node *r) {
+    if (r == nullptr) {
+        return true;
+    }
+    else {
+        if (r->bal <= 1 && r->bal >= -1) {
+            isBalanced(r->left);
+            isBalanced(r->right);
+        }
+    }
+
     return false;
 }
 
-AvlTree::Node AvlTree::getParent(AvlTree::Node *pnode, int value) {
+AvlTree::Node *AvlTree::getParent(AvlTree::Node *pnode, int value) {
     if (isEmpty() || pnode->key == root->key) {
-        return *root;
-    }
-    else {
-        if ( (pnode->left != nullptr && pnode->left->key == value) || (pnode->right != nullptr && pnode->right->key == value)) {
-            return *pnode;
-        }
-        else if (pnode->key > value) {
+        return root;
+    } else {
+        if ((pnode->left != nullptr && pnode->left->key == value) ||
+            (pnode->right != nullptr && pnode->right->key == value)) {
+            return pnode;
+        } else if (pnode->key > value) {
             return getParent(pnode->left, value);
-        }
-        else if (pnode->key < value) {
+        } else if (pnode->key < value) {
             return getParent(pnode->right, value);
         }
     }
 }
 
-int AvlTree::calculateBalance(AvlTree::Node *n) {
-
-    int balance = 0;
-
-    if (n == nullptr) {
-        return 0;
-    }
-    else {
-        balance = getHeight(n->right) - getHeight(n->left);
-        return balance;
+void AvlTree::upin(AvlTree::Node *n) {
+    int value = n->key;
+    if (getParent(root, value)->key == root->key) {
+        calculateBalance(root);
+    } else {
+        calculateBalance(n);
+        auto nodeBefore = getParent(n, value);
+        upin(nodeBefore);
     }
 }
 
-int AvlTree::getHeight(AvlTree::Node *n){
+void AvlTree::calculateBalance(AvlTree::Node *n) {
+    if (n == nullptr) {
+        return;
+    } else {
+        n->bal = getHeight(n->right) - getHeight(n->left);
+        return;
+    }
+}
+
+int AvlTree::getHeight(AvlTree::Node *n) {
     int left, right;
 
-    if(n== nullptr)
+    if (n == nullptr)
         return 0;
     left = getHeight(n->left);
     right = getHeight(n->right);
-    if(left > right)
-        return left+1;
+    if (left > right)
+        return left + 1;
     else
-        return right+1;
+        return right + 1;
 }
 
 /********************************************************************
@@ -98,19 +117,25 @@ bool AvlTree::Node::search(const int value) const {
  *******************************************************************/
 
 void AvlTree::insert(int value) {
-    if (root == nullptr)
+    if (root == nullptr) {
         root = new Node(value, 0);
+        calculateBalance(root);
+    }
     else
         root->insert(value);
 }
 
+// insert wie in VL!!!
 void AvlTree::Node::insert(int value) {
     if (value == key)
         return;
 
     if (value < key) {
-        if (left == nullptr)
+        if (left == nullptr) {
             left = new Node(value, 0);
+            //calculateBalance(left);
+        }
+
         else
             left->insert(value);
     }
@@ -283,29 +308,31 @@ vector<int> *AvlTree::Node::postorder() const {
 }
 
 
-
 /********************************************************************
  * operator<<
  *******************************************************************/
 
 std::ostream &operator<<(std::ostream &os, const AvlTree &tree) {
-    function<void(std::ostream &, const int, const AvlTree::Node *, const string)> printToOs = [&](std::ostream &os, const int value, const AvlTree::Node *node, const string l) {
+    function<void(std::ostream &, const int, const AvlTree::Node *, const string)> printToOs = [&](std::ostream &os,
+                                                                                                   const int value,
+                                                                                                   const AvlTree::Node *node,
+                                                                                                   const string l) {
 
-                static int nullcount = 0;
+        static int nullcount = 0;
 
-                if (node == nullptr) {
-                    os << "    null" << nullcount << "[shape=point];" << endl;
-                    os << "    " << value << " -> null" << nullcount
-                       << " [label=\"" << l << "\"];" << endl;
-                    nullcount++;
-                } else {
-                    os << "    " << value << " -> " << node->key
-                       << " [label=\"" << l << "\"];" << endl;
+        if (node == nullptr) {
+            os << "    null" << nullcount << "[shape=point];" << endl;
+            os << "    " << value << " -> null" << nullcount
+               << " [label=\"" << l << "\"];" << endl;
+            nullcount++;
+        } else {
+            os << "    " << value << " -> " << node->key
+               << " [label=\"" << l << "\"];" << endl;
 
-                    printToOs(os, node->key, node->left, "l");
-                    printToOs(os, node->key, node->right, "r");
-                }
-            };
+            printToOs(os, node->key, node->left, "l");
+            printToOs(os, node->key, node->right, "r");
+        }
+    };
     os << "digraph tree {" << endl;
     if (tree.root == nullptr) {
         os << "    null " << "[shape=point];" << endl;

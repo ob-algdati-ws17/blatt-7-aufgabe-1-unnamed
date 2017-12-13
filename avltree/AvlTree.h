@@ -18,17 +18,17 @@ private:
 
     struct Node {
         const int key;
-        const int bal;
+        int bal;
         Node *left = nullptr;
         Node *right = nullptr;
 
 
-        Node(const int, const int);
+        Node(const int, int);
 
         /**
          * Constructor for node.
          */
-        Node(const int, const int, Node *, Node *);
+        Node(const int, int, Node *, Node *);
 
         /**
          * Destrucor for node.
@@ -41,6 +41,13 @@ private:
          * @return true if value is in the tree, false if value cannot be found.
          */
         bool search(const int) const;
+
+        /**
+         * Method to check if avl tree is balanced.
+         * @param Node to be checked if balanced.
+         * @return true if balance is -1, 0, 1, false if not.
+         */
+        bool isBalanced(Node*);
 
 
         /**
@@ -87,17 +94,19 @@ public:
      */
     bool isEmpty() const;
 
-    /**
-     * Method to check if avl tree is balanced.
-     * @return true if balance is -1, 0, 1, false if not.
-     */
+
     bool isBalanced();
 
     /**
      * Method to get node before given node.
      * @return Parent node.
      */
-    Node getParent(Node*, int);
+    Node* getParent(Node*, int);
+
+    /**
+     * Method to update balance on path to given (new inserted) node.
+     */
+    void upin(Node*);
 
     /**
      * Search given value in tree.
@@ -111,7 +120,7 @@ public:
      * @param n Node pointer which balance has to be calculated.
      * @return balance (here: between -1 and 1).
      */
-    int calculateBalance(Node *);
+    void calculateBalance(Node *);
 
     /**
      * Get height.

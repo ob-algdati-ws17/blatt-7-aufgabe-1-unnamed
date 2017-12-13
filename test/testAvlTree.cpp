@@ -29,3 +29,8 @@ TEST(TreeTest, Two_Nodes) {
     EXPECT_FALSE(avl.search(7));
     EXPECT_FALSE(avl.isEmpty());
 }
+
+TEST(TreeTest, Empty_Tree) {
+    AvlTree avl;
+    EXPECT_TRUE(avl.isBalanced());
+}
