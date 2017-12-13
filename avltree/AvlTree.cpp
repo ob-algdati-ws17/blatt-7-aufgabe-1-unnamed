@@ -34,7 +34,7 @@ bool AvlTree::isBalanced() {
 
 AvlTree::Node AvlTree::getParent(AvlTree::Node *pnode, int value) {
     if (isEmpty() || pnode->key == root->key) {
-        return nullptr;
+        return *root;
     }
     else {
         if ( (pnode->left != nullptr && pnode->left->key == value) || (pnode->right != nullptr && pnode->right->key == value)) {
