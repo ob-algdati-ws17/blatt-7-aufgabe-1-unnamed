@@ -88,6 +88,18 @@ public:
     bool isEmpty() const;
 
     /**
+     * Method to check if avl tree is balanced.
+     * @return true if balance is -1, 0, 1, false if not.
+     */
+    bool isBalanced();
+
+    /**
+     * Method to get node before given node.
+     * @return Parent node.
+     */
+    Node getParent(Node*, int);
+
+    /**
      * Search given value in tree.
      * @param value Integer value that has to be searched.
      * @return false if tree is empty, go to following method if it is not empty.

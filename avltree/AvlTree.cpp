@@ -25,6 +25,30 @@ bool AvlTree::isEmpty() const {
     return root == nullptr;
 }
 
+bool AvlTree::isBalanced() {
+    if (calculateBalance(root) <= 1 || calculateBalance(root) >= -1) {
+        return true;
+    }
+    return false;
+}
+
+AvlTree::Node AvlTree::getParent(AvlTree::Node *pnode, int value) {
+    if (isEmpty() || pnode->key == root->key) {
+        return nullptr;
+    }
+    else {
+        if ( (pnode->left != nullptr && pnode->left->key == value) || (pnode->right != nullptr && pnode->right->key == value)) {
+            return *pnode;
+        }
+        else if (pnode->key > value) {
+            return getParent(pnode->left, value);
+        }
+        else if (pnode->key < value) {
+            return getParent(pnode->right, value);
+        }
+    }
+}
+
 int AvlTree::calculateBalance(AvlTree::Node *n) {
 
     int balance = 0;
