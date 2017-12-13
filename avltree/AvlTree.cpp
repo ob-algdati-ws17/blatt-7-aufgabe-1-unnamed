@@ -9,26 +9,21 @@ using namespace ::std;
 
 AvlTree::Node::Node(const int k, const int h) : key(k), bal(h) {}
 
-//Constructor for Node
 AvlTree::Node::Node(const int k, const int h, Node *l, Node *r)
         : key(k), bal(h), left(l), right(r) {}
 
-//Destructor for node
 AvlTree::Node::~Node() {
     delete left;
     delete right;
 }
 
-//Destructor for complete tree
 AvlTree::~AvlTree() {
     delete root;
 }
 
-
 bool AvlTree::isEmpty() const {
     return root == nullptr;
 }
-
 
 int AvlTree::calculateBalance(AvlTree::Node *n) {
 
@@ -42,7 +37,6 @@ int AvlTree::calculateBalance(AvlTree::Node *n) {
         return balance;
     }
 }
-
 
 int AvlTree::getHeight(AvlTree::Node *n){
     int left, right;
@@ -61,13 +55,11 @@ int AvlTree::getHeight(AvlTree::Node *n){
  * Search
  *******************************************************************/
 
-
 bool AvlTree::search(const int value) const {
     if (root == nullptr)
         return false;
     return root->search(value);
 }
-
 
 bool AvlTree::Node::search(const int value) const {
     if (value == key) return true;
