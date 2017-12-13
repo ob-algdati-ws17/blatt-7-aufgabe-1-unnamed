@@ -69,8 +69,10 @@ public:
     /*
 
     friend Node *findSymSucc(Node *);
+
+     */
     friend ostream &operator<<(ostream &, const AvlTree &);
-    */
+
 };
 
 #endif //AVLTREE_AVLTREE_H

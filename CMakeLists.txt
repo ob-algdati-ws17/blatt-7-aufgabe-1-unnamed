@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 3.2)
-project(avl)
+project(main)
 
 set(CMAKE_CXX_STANDARD 11)
 
 add_subdirectory(avltree)
 
-set(SOURCE_FILES avltree/AvlTree.cpp avltree/AvlTree.h test/main.cpp test/testAvlTree.cpp test/testAvlTree.h)
-add_executable(Main ${SOURCE_FILES})
+set(SOURCE_FILES main.cpp)
+add_executable(main ${SOURCE_FILES})
 
-target_link_libraries(Main LINK_PUBLIC avltree)
+target_link_libraries(main LINK_PUBLIC avltree)
 
 # GoogleTest
 

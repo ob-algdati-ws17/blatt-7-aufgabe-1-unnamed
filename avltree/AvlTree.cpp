@@ -3,6 +3,7 @@
 //
 
 #include "AvlTree.h"
+#include <functional>
 
 using namespace ::std;
 
@@ -38,7 +39,6 @@ int AvlTree::calculateBalance(AvlTree::Node *n) {
     }
     else {
         balance = getHeight(n->right) - getHeight(n->left);
-        //balance = n->right->bal - n->left->bal;
         return balance;
     }
 }
@@ -271,7 +271,7 @@ vector<int> *AvlTree::Node::postorder() const {
 /********************************************************************
  * operator<<
  *******************************************************************/
-/*
+
 std::ostream &operator<<(std::ostream &os, const AvlTree &tree) {
     function<void(std::ostream &, const int, const AvlTree::Node *, const string)> printToOs = [&](std::ostream &os, const int value, const AvlTree::Node *node, const string l) {
 
@@ -303,4 +303,3 @@ std::ostream &operator<<(std::ostream &os, const AvlTree &tree) {
 
 }
 
- */
