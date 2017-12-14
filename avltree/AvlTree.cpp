@@ -94,6 +94,7 @@ int AvlTree::getHeight(AvlTree::Node *n) {
         return right + 1;
 }
 
+
 /********************************************************************
  * Search
  *******************************************************************/
@@ -116,7 +117,51 @@ bool AvlTree::Node::search(const int value) const {
  * Insert
  *******************************************************************/
 
+AvlTree::Node* AvlTree::insert(Node *r, int value) {
+
+    if (r == nullptr) {
+        r = new Node(value, 0);
+        r->left = nullptr;
+        r->right = nullptr;
+        return r;
+        //has to be balanced because only one node
+    }
+
+    //value is in the left part of the tree
+    else if (value < r->key)    {
+        if (r->bal == 1) {
+
+            r->left = insert(r->left, value);
+            calculateBalance(r->left);
+            upin(r);
+            while (!isBalanced()) {
+                //rotate oder doublerotate
+            }
+        }
+
+        return r->left;
+
+    }
+
+    //value is on right side of the tree
+    else if (value >= r->key)  {
+
+        r->right = insert(r->right, value);
+        calculateBalance(r->right);
+        upin(r->right);
+        while (!isBalanced()) {
+            //rotate oder doublerotate
+        }
+        return r->right;
+    }
+
+
+}
+
+
+/*
 void AvlTree::insert(int value) {
+    //insert in empty tree
     if (root == nullptr) {
         root = new Node(value, 0);
         calculateBalance(root);
@@ -125,21 +170,26 @@ void AvlTree::insert(int value) {
         root->insert(value);
 }
 
-// insert wie in VL!!!
 void AvlTree::Node::insert(int value) {
+
+    //value already exists - no insertion
     if (value == key)
         return;
 
+    //danach Check ob der Baum noch ausgeglichen ist (upin & calculatebalance)
+    //dazu von eingefügtem Knoten bis zur Wurzel laufen und -1, 0, 1 checken
+    //ansonsten Rotation oder Doppelrotation
+
+    //value is smaller: left side of the tree
     if (value < key) {
         if (left == nullptr) {
             left = new Node(value, 0);
-            //calculateBalance(left);
         }
-
         else
             left->insert(value);
     }
 
+    //value is bigger: right side of the tree
     if (value > key) {
         if (right == nullptr)
             right = new Node(value, 0);
@@ -147,7 +197,7 @@ void AvlTree::Node::insert(int value) {
             right->insert(value);
     }
 }
-
+*/
 
 /********************************************************************
  * Remove
