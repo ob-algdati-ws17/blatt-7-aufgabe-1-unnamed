@@ -54,7 +54,7 @@ private:
          * Insert a given value in the tree.
          * @param value Integer value that has to be inserted.
          */
-
+        void insert(const int);
         /*
         Node *remove(const int);
          */
@@ -133,7 +133,7 @@ public:
      * Insert a value in the tree.
      * @param value Integer value that has to be inserted.
      */
-    Node* insert(Node *, const int);
+    void insert(const int);
 
     /*
 

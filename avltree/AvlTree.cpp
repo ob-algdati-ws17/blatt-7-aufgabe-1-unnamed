@@ -117,6 +117,19 @@ bool AvlTree::Node::search(const int value) const {
  * Insert
  *******************************************************************/
 
+/*
+//Maybe idea for insert but not working yet
+
+void AvlTree::insert(int value) {
+    //insert in empty tree
+    if (root == nullptr) {
+        root = new Node(value, 0);
+        calculateBalance(root);
+    }
+    else
+        insert(root, value);
+}
+
 AvlTree::Node* AvlTree::insert(Node *r, int value) {
 
     if (r == nullptr) {
@@ -157,9 +170,9 @@ AvlTree::Node* AvlTree::insert(Node *r, int value) {
 
 
 }
+*/
 
 
-/*
 void AvlTree::insert(int value) {
     //insert in empty tree
     if (root == nullptr) {
@@ -197,7 +210,7 @@ void AvlTree::Node::insert(int value) {
             right->insert(value);
     }
 }
-*/
+
 
 /********************************************************************
  * Remove
