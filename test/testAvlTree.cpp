@@ -7,7 +7,9 @@
 
 using namespace std;
 
-//empty tree
+// empty tree:
+// isEmpty() == true
+// isBalanced() == true
 
 TEST(TreeTest, Test_EmptyTree) {
     AvlTree avl;
@@ -15,17 +17,23 @@ TEST(TreeTest, Test_EmptyTree) {
     EXPECT_TRUE(avl.isBalanced());
 }
 
-
-//tree with one node
+// tree with one node
+// isEmpty() == false
+// isBalanced() == true
+// search(1) == true, search(2) == false
 
 TEST(TreeTest, One_Node) {
     AvlTree avl;
     avl.insert(1);
     EXPECT_FALSE(avl.isEmpty());
+    EXPECT_TRUE(avl.isBalanced());
     EXPECT_TRUE(avl.search(1));
     EXPECT_FALSE(avl.search(2));
-    //EXPECT_TRUE(avl.isBalanced());
 }
+
+// test with two nodes
+// isEmpty() == false
+// isBalanced() == true
 
 TEST(TreeTest, Two_Nodes) {
     AvlTree avl;

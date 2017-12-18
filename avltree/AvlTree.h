@@ -19,6 +19,7 @@ private:
     struct Node {
         const int key;
         int bal;
+        Node *parent = nullptr;
         Node *left = nullptr;
         Node *right = nullptr;
 

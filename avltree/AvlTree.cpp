@@ -26,6 +26,7 @@ bool AvlTree::isEmpty() const {
 }
 
 bool AvlTree::isBalanced() {
+    //std::cout << "AvlTree isBalanced()" << std::endl;
     if (root == nullptr) {
         return true;
     }
@@ -33,13 +34,18 @@ bool AvlTree::isBalanced() {
 }
 
 bool AvlTree::Node::isBalanced(AvlTree::Node *r) {
+    //cout << "AvlTree::Node isBalanced()" << endl;
     if (r == nullptr) {
+        //cout << "Node ist nullpointer" << endl;
         return true;
     }
     else {
         if (r->bal <= 1 && r->bal >= -1) {
-            isBalanced(r->left);
-            isBalanced(r->right);
+            bool righttrue = isBalanced(r->left);
+            bool lefttrue = isBalanced(r->right);
+            if (righttrue && lefttrue) {
+                return true;
+            }
         }
     }
 
@@ -47,6 +53,7 @@ bool AvlTree::Node::isBalanced(AvlTree::Node *r) {
 }
 
 AvlTree::Node *AvlTree::getParent(AvlTree::Node *pnode, int value) {
+    cout << "***GetParent starts here***" << endl;
     if (isEmpty() || pnode->key == root->key) {
         return nullptr;
     }
@@ -56,19 +63,33 @@ AvlTree::Node *AvlTree::getParent(AvlTree::Node *pnode, int value) {
 }
 
 AvlTree::Node *AvlTree::Node::getParent(AvlTree::Node *pnode, int value) {
-    if ((pnode->left != nullptr && pnode->left->key == value) ||
-        (pnode->right != nullptr && pnode->right->key == value)) {
+    cout << "***GetParent Node starts here ***" << endl;
+    cout << "pnode.key = " << pnode->key << endl;
+    cout << "value = " << value << endl;
+
+
+    if ((pnode->left->key == value) ||
+        (pnode->right->key == value)) {
+        cout << "aktueller Knoten ist gesuchter Knoten" << endl;
         return pnode;
+
     } else if (pnode->key > value) {
+        cout << "Value ist kleiner als aktueller Schlüssel" << endl;
         return getParent(pnode->left, value);
     } else if (pnode->key < value) {
+        cout << "Value ist größter als aktueller schlüssel" << endl;
         return getParent(pnode->right, value);
     }
+    cout << "it does nothing" << endl;
 }
 
 void AvlTree::Node::upin(AvlTree::Node *n) {
+    cout << "***Upin starts here ***" << endl;
     int value = n->key;
+    cout << "aktuelles n: " << n << endl;
+    cout << "Value " << value << endl;
     if (getParent(n, value) == nullptr) {
+        cout << "Parent is nullpointer" << endl;
         calculateBalance(n);
         return;
     } else {
@@ -79,10 +100,14 @@ void AvlTree::Node::upin(AvlTree::Node *n) {
 }
 
 void AvlTree::Node::calculateBalance(AvlTree::Node *n) {
+    //cout << "***Calculate Balance**" << endl;
     if (n == nullptr) {
         return;
     } else {
+        //cout << "n ist nicht Nullpointer" << endl;
+        //cout << n->bal << endl;
         n->bal = getHeight(n->right) - getHeight(n->left);
+        //cout << n->bal << endl;
         return;
     }
 }
@@ -208,8 +233,10 @@ AvlTree::Node* AvlTree::insert(Node *r, int value) {
 
 
 void AvlTree::insert(int value) {
+    cout << "***Insert starts here***" << endl;
     //insert in empty tree
     if (root == nullptr) {
+        cout << "insert into empty tree" << endl;
         root = new Node(value, 0);
     }
     else
@@ -217,17 +244,16 @@ void AvlTree::insert(int value) {
 }
 
 void AvlTree::Node::insert(int value) {
-
+    cout << "***Insert Node starts here***" << endl;
     //value already exists - no insertion
     if (value == key)
         return;
 
-    //danach Check ob der Baum noch ausgeglichen ist (upin & calculatebalance)
-    //dazu von eingefügtem Knoten bis zur Wurzel laufen und -1, 0, 1 checken
-    //ansonsten Rotation oder Doppelrotation
+    //cout << "Value existiert noch nicht" << endl;
 
     //value is smaller: left side of the tree
     if (value < key) {
+        cout << "Value is smaller" << endl;
         if (left == nullptr) {
             left = new Node(value, 0);
             calculateBalance(left);
@@ -248,9 +274,14 @@ void AvlTree::Node::insert(int value) {
 
     //value is bigger: right side of the tree
     if (value > key) {
+        cout << "Value is bigger" << endl;
         if (right == nullptr) {
+            //cout << right << endl;
             right = new Node(value, 0);
+
             calculateBalance(right);
+            cout << "Balance calculated" << endl;
+            cout << right << endl;
             upin(right);
             //wenn balance (parent(parent(right))) > 1 und ganz rechts angefügt --> leftrotate
             if (getParent(getParent(right, value), value)->bal > 1) {
