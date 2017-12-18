@@ -12,13 +12,19 @@ using namespace std;
 TEST(TreeTest, Test_EmptyTree) {
     AvlTree avl;
     EXPECT_TRUE(avl.isEmpty());
+    EXPECT_TRUE(avl.isBalanced());
 }
+
+
+//tree with one node
 
 TEST(TreeTest, One_Node) {
     AvlTree avl;
     avl.insert(1);
     EXPECT_FALSE(avl.isEmpty());
     EXPECT_TRUE(avl.search(1));
+    EXPECT_FALSE(avl.search(2));
+    //EXPECT_TRUE(avl.isBalanced());
 }
 
 TEST(TreeTest, Two_Nodes) {
@@ -30,7 +36,4 @@ TEST(TreeTest, Two_Nodes) {
     EXPECT_FALSE(avl.isEmpty());
 }
 
-TEST(TreeTest, Empty_Tree) {
-    AvlTree avl;
-    EXPECT_TRUE(avl.isBalanced());
-}
+
