@@ -101,6 +101,34 @@ int AvlTree::Node::getHeight(AvlTree::Node *n) {
 }
 
 
+void AvlTree::Node::rightRotate(AvlTree::Node *n) {
+    auto x = n->left;
+    auto z = x->right;
+
+    // Perform rotation
+    x->right = n;
+    n->left = z;
+
+    //calculateBalance n und x
+    calculateBalance(n);
+    calculateBalance(x);
+}
+
+void AvlTree::Node::leftRotate(AvlTree::Node *n)
+{
+    auto y = n->right;
+    auto z = y->left;
+
+    // Perform rotation
+    y->left = n;
+    n->right = z;
+
+    // calculate n and y
+    calculateBalance(n);
+    calculateBalance(y);
+}
+
+
 /********************************************************************
  * Search
  *******************************************************************/
@@ -203,6 +231,16 @@ void AvlTree::Node::insert(int value) {
         if (left == nullptr) {
             left = new Node(value, 0);
             calculateBalance(left);
+            upin(left);
+            //wenn balance (parent(parent(left))) < -1 und ganz links angefügt --> rightrotate
+            if (getParent(getParent(left, value), value)->bal < -1 ) {
+                rightRotate(getParent(left, value));
+            }
+            //wenn balance (parent(parent(left))) > 1 und ganz links --> rightrotate leftrotate
+            else if (getParent(getParent(left, value), value)->bal > 1) {
+                rightRotate(getParent(left, value));
+                leftRotate(getParent(getParent(left, value), value));
+            }
         }
         else
             left->insert(value);
@@ -213,10 +251,23 @@ void AvlTree::Node::insert(int value) {
         if (right == nullptr) {
             right = new Node(value, 0);
             calculateBalance(right);
+            upin(right);
+            //wenn balance (parent(parent(right))) > 1 und ganz rechts angefügt --> leftrotate
+            if (getParent(getParent(right, value), value)->bal > 1) {
+                leftRotate(getParent(right, value));
+            }
+            //wenn balance (parent(parent(right))) < -1 und ganz rechts --> leftrotate rightrotate
+            else if (getParent(getParent(right, value), value)->bal < -1) {
+                leftRotate(getParent(right, value));
+                rightRotate(getParent(getParent(right, value), value));
+            }
         }
         else
             right->insert(value);
     }
+
+    //while(!isBalanced()) {
+    // rotate or double rotate
 }
 
 

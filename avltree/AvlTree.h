@@ -57,6 +57,10 @@ private:
 
         Node* getParent(Node*, int);
 
+        void rightRotate(Node *);
+
+        void leftRotate(Node *);
+
 
         /**
          * Insert a given value in the tree.
@@ -105,6 +109,7 @@ public:
     Node* getParent(Node*, int);
 
     bool isBalanced();
+
 
     /**
      * Method to get node before given node.
