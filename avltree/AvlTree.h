@@ -49,6 +49,14 @@ private:
          */
         bool isBalanced(Node*);
 
+        void calculateBalance(Node *);
+
+        int getHeight(Node *);
+
+        void upin(Node*);
+
+        Node* getParent(Node*, int);
+
 
         /**
          * Insert a given value in the tree.
@@ -94,6 +102,7 @@ public:
      */
     bool isEmpty() const;
 
+    Node* getParent(Node*, int);
 
     bool isBalanced();
 
@@ -101,12 +110,12 @@ public:
      * Method to get node before given node.
      * @return Parent node.
      */
-    Node* getParent(Node*, int);
+
 
     /**
      * Method to update balance on path to given (new inserted) node.
      */
-    void upin(Node*);
+
 
     /**
      * Search given value in tree.
@@ -120,14 +129,14 @@ public:
      * @param n Node pointer which balance has to be calculated.
      * @return balance (here: between -1 and 1).
      */
-    void calculateBalance(Node *);
+
 
     /**
      * Get height.
      * @param n Node pointer which height has to be calculated.
      * @return height, number of longest path after node.
      */
-    int getHeight(Node *);
+
 
     /**
      * Insert a value in the tree.

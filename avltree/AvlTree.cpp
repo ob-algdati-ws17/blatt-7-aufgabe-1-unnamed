@@ -48,23 +48,29 @@ bool AvlTree::Node::isBalanced(AvlTree::Node *r) {
 
 AvlTree::Node *AvlTree::getParent(AvlTree::Node *pnode, int value) {
     if (isEmpty() || pnode->key == root->key) {
-        return root;
-    } else {
-        if ((pnode->left != nullptr && pnode->left->key == value) ||
-            (pnode->right != nullptr && pnode->right->key == value)) {
-            return pnode;
-        } else if (pnode->key > value) {
-            return getParent(pnode->left, value);
-        } else if (pnode->key < value) {
-            return getParent(pnode->right, value);
-        }
+        return nullptr;
+    }
+    else {
+        getParent(pnode, value);
     }
 }
 
-void AvlTree::upin(AvlTree::Node *n) {
+AvlTree::Node *AvlTree::Node::getParent(AvlTree::Node *pnode, int value) {
+    if ((pnode->left != nullptr && pnode->left->key == value) ||
+        (pnode->right != nullptr && pnode->right->key == value)) {
+        return pnode;
+    } else if (pnode->key > value) {
+        return getParent(pnode->left, value);
+    } else if (pnode->key < value) {
+        return getParent(pnode->right, value);
+    }
+}
+
+void AvlTree::Node::upin(AvlTree::Node *n) {
     int value = n->key;
-    if (getParent(root, value)->key == root->key) {
-        calculateBalance(root);
+    if (getParent(n, value) == nullptr) {
+        calculateBalance(n);
+        return;
     } else {
         calculateBalance(n);
         auto nodeBefore = getParent(n, value);
@@ -72,7 +78,7 @@ void AvlTree::upin(AvlTree::Node *n) {
     }
 }
 
-void AvlTree::calculateBalance(AvlTree::Node *n) {
+void AvlTree::Node::calculateBalance(AvlTree::Node *n) {
     if (n == nullptr) {
         return;
     } else {
@@ -81,7 +87,7 @@ void AvlTree::calculateBalance(AvlTree::Node *n) {
     }
 }
 
-int AvlTree::getHeight(AvlTree::Node *n) {
+int AvlTree::Node::getHeight(AvlTree::Node *n) {
     int left, right;
 
     if (n == nullptr)
@@ -177,7 +183,6 @@ void AvlTree::insert(int value) {
     //insert in empty tree
     if (root == nullptr) {
         root = new Node(value, 0);
-        calculateBalance(root);
     }
     else
         root->insert(value);
@@ -197,6 +202,7 @@ void AvlTree::Node::insert(int value) {
     if (value < key) {
         if (left == nullptr) {
             left = new Node(value, 0);
+            calculateBalance(left);
         }
         else
             left->insert(value);
@@ -204,8 +210,10 @@ void AvlTree::Node::insert(int value) {
 
     //value is bigger: right side of the tree
     if (value > key) {
-        if (right == nullptr)
+        if (right == nullptr) {
             right = new Node(value, 0);
+            calculateBalance(right);
+        }
         else
             right->insert(value);
     }
