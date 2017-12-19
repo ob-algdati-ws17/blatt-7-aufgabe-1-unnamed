@@ -134,14 +134,19 @@ void AvlTree::rightRotate(AvlTree::Node *n) {
         n->left = y->right;
         y->right = n;
         if (n->key > grandparent->key) {
-            grandparent->right = n;
+            grandparent->right = y;
         }
         else {
-            grandparent->left = n;
+            grandparent->left = y;
         }
+
+
         calculateBalance(n);
-        calculateBalance(y);
+        //calculateBalance(y);
+        upin(y);
     }
+
+
 
 }
 
@@ -157,18 +162,25 @@ void AvlTree::leftRotate(AvlTree::Node *n)
         calculateBalance(y);
     }
     else {
+        cout << "leftRotate not root" << endl;
         auto grandparent = getParent(n->key);
         auto y = n->right;
         n->right = y->left;
         y->left = n;
         if (n->key > grandparent->key) {
-            grandparent->right = n;
+            cout << "granparent ist kleiner als n.key" << endl;
+            grandparent->right = y;
         }
         else {
-            grandparent->left = n;
+
+            grandparent->left = y;
         }
         calculateBalance(n);
-        calculateBalance(y);
+        //calculateBalance(y);
+        upin(y);
+
+        cout << "Balance n: " << n->bal << endl;
+        cout << "Balance y: " << y->bal << endl;
     }
 }
 
