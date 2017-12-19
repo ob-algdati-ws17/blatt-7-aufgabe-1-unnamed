@@ -38,10 +38,33 @@ TEST(TreeTest, One_Node) {
 TEST(TreeTest, Two_Nodes) {
     AvlTree avl;
     avl.insert(1);
-    //avl.insert(5);
-    //EXPECT_TRUE(avl.search(5));
+    avl.insert(5);
+    EXPECT_TRUE(avl.search(5));
     EXPECT_FALSE(avl.search(7));
     EXPECT_FALSE(avl.isEmpty());
 }
 
+TEST(TreeTest, Three_Nodes) {
+    AvlTree avl;
+    avl.insert(2);
+    avl.insert(1);
+    avl.insert(3);
+    EXPECT_TRUE(avl.isBalanced());
+}
+
+TEST(TreeTest, Three_Nodes_LeftRotate) {
+    AvlTree avl;
+    avl.insert(1);
+    avl.insert(2);
+    avl.insert(3);
+    EXPECT_TRUE(avl.isBalanced());
+}
+
+TEST(TreeTest, Three_Nodes_RightRotate) {
+    AvlTree avl;
+    avl.insert(3);
+    avl.insert(2);
+    avl.insert(1);
+    EXPECT_TRUE(avl.isBalanced());
+}
 

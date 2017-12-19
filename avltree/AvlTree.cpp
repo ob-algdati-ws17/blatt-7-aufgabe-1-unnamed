@@ -52,67 +52,60 @@ bool AvlTree::Node::isBalanced(AvlTree::Node *r) {
     return false;
 }
 
-AvlTree::Node *AvlTree::getParent(AvlTree::Node *pnode, int value) {
-    cout << "***GetParent starts here***" << endl;
-    if (isEmpty() || pnode->key == root->key) {
+AvlTree::Node *AvlTree::getParent(int value) {
+    //parent nullptr (list empty or only root)
+    if (isEmpty() || value == root->key) {
         return nullptr;
     }
     else {
-        getParent(pnode, value);
+        getParent(root, value);
     }
 }
 
-AvlTree::Node *AvlTree::Node::getParent(AvlTree::Node *pnode, int value) {
-    cout << "***GetParent Node starts here ***" << endl;
-    cout << "pnode.key = " << pnode->key << endl;
-    cout << "value = " << value << endl;
-
-
-    if ((pnode->left->key == value) ||
-        (pnode->right->key == value)) {
-        cout << "aktueller Knoten ist gesuchter Knoten" << endl;
+AvlTree::Node *AvlTree::getParent(AvlTree::Node *pnode, int value) {
+    if (pnode->left == nullptr) {
+        if (pnode->right->key == value) {
+            return pnode;
+        }
+    }
+    else if (pnode->right == nullptr) {
+        if (pnode->left->key == value) {
+            return pnode;
+        }
+    }
+    else if (pnode->right->key == value || pnode->left->key == value) {
         return pnode;
+    }
 
-    } else if (pnode->key > value) {
-        cout << "Value ist kleiner als aktueller Schlüssel" << endl;
+    if (pnode->key > value) {
         return getParent(pnode->left, value);
     } else if (pnode->key < value) {
-        cout << "Value ist größter als aktueller schlüssel" << endl;
         return getParent(pnode->right, value);
     }
-    cout << "it does nothing" << endl;
 }
 
-void AvlTree::Node::upin(AvlTree::Node *n) {
-    cout << "***Upin starts here ***" << endl;
+void AvlTree::upin(AvlTree::Node *n) {
     int value = n->key;
-    cout << "aktuelles n: " << n << endl;
-    cout << "Value " << value << endl;
-    if (getParent(n, value) == nullptr) {
-        cout << "Parent is nullpointer" << endl;
+    if (getParent(value) == nullptr) {
         calculateBalance(n);
         return;
     } else {
         calculateBalance(n);
-        auto nodeBefore = getParent(n, value);
+        auto nodeBefore = getParent(value);
         upin(nodeBefore);
     }
 }
 
-void AvlTree::Node::calculateBalance(AvlTree::Node *n) {
-    //cout << "***Calculate Balance**" << endl;
+void AvlTree::calculateBalance(AvlTree::Node *n) {
     if (n == nullptr) {
         return;
     } else {
-        //cout << "n ist nicht Nullpointer" << endl;
-        //cout << n->bal << endl;
         n->bal = getHeight(n->right) - getHeight(n->left);
-        //cout << n->bal << endl;
         return;
     }
 }
 
-int AvlTree::Node::getHeight(AvlTree::Node *n) {
+int AvlTree::getHeight(AvlTree::Node *n) {
     int left, right;
 
     if (n == nullptr)
@@ -126,31 +119,57 @@ int AvlTree::Node::getHeight(AvlTree::Node *n) {
 }
 
 
-void AvlTree::Node::rightRotate(AvlTree::Node *n) {
-    auto x = n->left;
-    auto z = x->right;
+void AvlTree::rightRotate(AvlTree::Node *n) {
+    if (getParent(n->key) == nullptr) {
+        auto y = n->left;
+        n->left = y->right;
+        y->right = n;
+        root = n;
 
-    // Perform rotation
-    x->right = n;
-    n->left = z;
+        calculateBalance(n);
+        calculateBalance(y);
+    } else {
+        auto grandparent = getParent(n->key);
+        auto y = n->left;
+        n->left = y->right;
+        y->right = n;
+        if (n->key > grandparent->key) {
+            grandparent->right = n;
+        }
+        else {
+            grandparent->left = n;
+        }
+        calculateBalance(n);
+        calculateBalance(y);
+    }
 
-    //calculateBalance n und x
-    calculateBalance(n);
-    calculateBalance(x);
 }
 
-void AvlTree::Node::leftRotate(AvlTree::Node *n)
+void AvlTree::leftRotate(AvlTree::Node *n)
 {
-    auto y = n->right;
-    auto z = y->left;
+    if (getParent(n->key) == nullptr) {
+        auto y = n->right;
+        n->right = y->left;
+        y->left = n;
+        root = n;
 
-    // Perform rotation
-    y->left = n;
-    n->right = z;
-
-    // calculate n and y
-    calculateBalance(n);
-    calculateBalance(y);
+        calculateBalance(n);
+        calculateBalance(y);
+    }
+    else {
+        auto grandparent = getParent(n->key);
+        auto y = n->right;
+        n->right = y->left;
+        y->left = n;
+        if (n->key > grandparent->key) {
+            grandparent->right = n;
+        }
+        else {
+            grandparent->left = n;
+        }
+        calculateBalance(n);
+        calculateBalance(y);
+    }
 }
 
 
@@ -233,68 +252,67 @@ AvlTree::Node* AvlTree::insert(Node *r, int value) {
 
 
 void AvlTree::insert(int value) {
-    cout << "***Insert starts here***" << endl;
     //insert in empty tree
     if (root == nullptr) {
-        cout << "insert into empty tree" << endl;
+        cout << "root is nullptr" << endl;
         root = new Node(value, 0);
     }
-    else
-        root->insert(value);
+    else {
+        cout << "root not nullptr" << endl;
+        insert(value, root);
+    }
 }
 
-void AvlTree::Node::insert(int value) {
-    cout << "***Insert Node starts here***" << endl;
+void AvlTree::insert(int value, AvlTree::Node *parent) {
     //value already exists - no insertion
-    if (value == key)
+    if (search(value))
         return;
 
     //cout << "Value existiert noch nicht" << endl;
 
     //value is smaller: left side of the tree
-    if (value < key) {
-        cout << "Value is smaller" << endl;
-        if (left == nullptr) {
-            left = new Node(value, 0);
-            calculateBalance(left);
-            upin(left);
+    if (value < parent->key) {
+        if (parent->left == nullptr) {
+            parent->left = new Node(value, 0);
+            upin(parent->left);
             //wenn balance (parent(parent(left))) < -1 und ganz links angefügt --> rightrotate
-            if (getParent(getParent(left, value), value)->bal < -1 ) {
-                rightRotate(getParent(left, value));
-            }
-            //wenn balance (parent(parent(left))) > 1 und ganz links --> rightrotate leftrotate
-            else if (getParent(getParent(left, value), value)->bal > 1) {
-                rightRotate(getParent(left, value));
-                leftRotate(getParent(getParent(left, value), value));
+            if (getParent(getParent(value)->key) != nullptr) {
+                if (getParent(getParent(value)->key)->bal < -1 ) {
+                    rightRotate(getParent(parent->key));
+                }
+                    //wenn balance (parent(parent(left))) > 1 und ganz links --> rightrotate leftrotate
+                else if (getParent(value)->bal > 1) {
+                    rightRotate(parent->left);
+                    leftRotate(getParent(value));
+                }
             }
         }
         else
-            left->insert(value);
+            insert(value, parent->left);
     }
 
     //value is bigger: right side of the tree
-    if (value > key) {
+    if (value > parent->key) {
         cout << "Value is bigger" << endl;
-        if (right == nullptr) {
+        if (parent->right == nullptr) {
             //cout << right << endl;
-            right = new Node(value, 0);
+            parent->right = new Node(value, 0);
 
-            calculateBalance(right);
-            cout << "Balance calculated" << endl;
-            cout << right << endl;
-            upin(right);
+            upin(parent->right);
             //wenn balance (parent(parent(right))) > 1 und ganz rechts angefügt --> leftrotate
-            if (getParent(getParent(right, value), value)->bal > 1) {
-                leftRotate(getParent(right, value));
-            }
-            //wenn balance (parent(parent(right))) < -1 und ganz rechts --> leftrotate rightrotate
-            else if (getParent(getParent(right, value), value)->bal < -1) {
-                leftRotate(getParent(right, value));
-                rightRotate(getParent(getParent(right, value), value));
+            if(getParent(getParent(value)->key) != nullptr) {
+                if (getParent(getParent(value)->key)->bal > 1) { //grandparent
+                    leftRotate(getParent(parent->key));
+                }
+                    //wenn balance (parent(parent(right))) < -1 und ganz rechts --> leftrotate rightrotate
+                else if (getParent(value)->bal < -1) {
+                    leftRotate(parent->right);
+                    rightRotate(getParent(value));
+                }
             }
         }
         else
-            right->insert(value);
+            insert(value, parent->right);
     }
 
     //while(!isBalanced()) {

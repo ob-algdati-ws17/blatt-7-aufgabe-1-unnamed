@@ -50,24 +50,7 @@ private:
          */
         bool isBalanced(Node*);
 
-        void calculateBalance(Node *);
 
-        int getHeight(Node *);
-
-        void upin(Node*);
-
-        Node* getParent(Node*, int);
-
-        void rightRotate(Node *);
-
-        void leftRotate(Node *);
-
-
-        /**
-         * Insert a given value in the tree.
-         * @param value Integer value that has to be inserted.
-         */
-        void insert(const int);
         /*
         Node *remove(const int);
          */
@@ -107,9 +90,21 @@ public:
      */
     bool isEmpty() const;
 
+    Node* getParent(int);
+
     Node* getParent(Node*, int);
 
     bool isBalanced();
+
+    void calculateBalance(Node *);
+
+    int getHeight(Node *);
+
+    void upin(Node*);
+
+    void rightRotate(Node *);
+
+    void leftRotate(Node *);
 
 
     /**
@@ -149,6 +144,12 @@ public:
      * @param value Integer value that has to be inserted.
      */
     void insert(const int);
+
+    /**
+         * Insert a given value in the tree.
+         * @param value Integer value that has to be inserted.
+         */
+    void insert(const int, Node*);
 
     /*
 
