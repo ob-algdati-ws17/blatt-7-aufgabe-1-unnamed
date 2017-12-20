@@ -137,3 +137,19 @@ TEST(TreeTest, Left_Right) {
     avl.insert(7);
     EXPECT_TRUE(avl.isBalanced());
 }
+
+TEST(TreeTest, Right_Left) {
+    AvlTree avl;
+    avl.insert(5);
+    avl.insert(2);
+    avl.insert(7);
+    avl.insert(1);
+    avl.insert(4);
+    avl.insert(6);
+    avl.insert(9);
+    avl.insert(3);
+    avl.insert(16);
+    EXPECT_TRUE(avl.isBalanced());
+    avl.insert(15);
+    EXPECT_TRUE(avl.isBalanced());
+}

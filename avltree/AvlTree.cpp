@@ -150,11 +150,8 @@ void AvlTree::rightRotate(AvlTree::Node *n) {
 
 }
 
-void AvlTree::leftRotate(AvlTree::Node *n)
-{
-    cout << "leftrotate****" << endl;
+void AvlTree::leftRotate(AvlTree::Node *n) {
     if (getParent(n->key) == nullptr) {
-        cout << "getParent ist nullptr" << endl;
         auto y = n->right;
         n->right = y->left;
         y->left = n;
@@ -164,26 +161,19 @@ void AvlTree::leftRotate(AvlTree::Node *n)
         calculateBalance(y);
     }
     else {
-        cout << "leftRotate not root" << endl;
         auto grandparent = getParent(n->key);
         auto y = n->right;
         n->right = y->left;
         y->left = n;
         if (n->key > grandparent->key) {
-            cout << "granparent ist kleiner als n.key" << endl;
             grandparent->right = y;
         }
         else {
-            cout << "grandparent größer als key" << endl;
-
             grandparent->left = y;
         }
         calculateBalance(n);
-        //calculateBalance(y);
+        calculateBalance(y);
         upin(y);
-
-        cout << "Balance n: " << n->bal << endl;
-        cout << "Balance y: " << y->bal << endl;
     }
 }
 
@@ -269,18 +259,15 @@ AvlTree::Node* AvlTree::insert(Node *r, int value) {
 void AvlTree::insert(int value) {
     //insert in empty tree
     if (root == nullptr) {
-        cout << "root is nullptr" << endl;
         root = new Node(value, 0);
     }
     else {
-        cout << "root not nullptr" << endl;
         insert(value, root);
     }
 }
 
 void AvlTree::insert(int value, AvlTree::Node *parent) {
     //value already exists - no insertion
-    cout << value << endl;
     if (search(value))
         return;
 
@@ -305,12 +292,15 @@ void AvlTree::insert(int value, AvlTree::Node *parent) {
             if (!isBalanced()) {
                 if (getParent(value) != nullptr) {
                     if (getParent(getParent(value)->key) != nullptr) {
-                        if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
-                            if (getParent(getParent(getParent(value)->key)->key)->bal > 1) {
-                                rightRotate(getParent(parent->key));
-                                leftRotate(getParent(parent->key));
+                        //if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
+                            //if (getParent(getParent(getParent(value)->key)->key)->bal > 1) {
+                                if (getParent(getParent(value)->key)->bal > 1) {
+
+
+                                rightRotate((parent));
+                                    leftRotate(getParent(getParent(parent->key)->key));
                             }
-                        }
+                        //}
                     }
                 }
             }
@@ -321,7 +311,6 @@ void AvlTree::insert(int value, AvlTree::Node *parent) {
 
     //value is bigger: right side of the tree
     if (value > parent->key) {
-        cout << "Value is bigger" << endl;
         if (parent->right == nullptr) {
             parent->right = new Node(value, 0);
             upin(parent->right);
@@ -335,18 +324,12 @@ void AvlTree::insert(int value, AvlTree::Node *parent) {
                     leftRotate(getParent(parent->key));
                     rightRotate(getParent(parent->key));
                 }*/
-                cout << "before greatgrandparent if" << endl;
-
             }
-            cout << "right before ggp if" << endl;
-            cout << value << endl;
             if (!isBalanced()) {
                 if (getParent(value) != nullptr) {
                     if (getParent(getParent(value)->key) != nullptr) {
                         if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
-                            cout << "Greatgrandparent ist nicht nullptr" << endl;
                             if (getParent(getParent(getParent(value)->key)->key)->bal < -1) {
-                                cout << "Greatgrandparent" << endl;
                                 leftRotate(getParent(parent->key));
                                 rightRotate(getParent(parent->key));
                             }
@@ -358,9 +341,6 @@ void AvlTree::insert(int value, AvlTree::Node *parent) {
         else
             insert(value, parent->right);
     }
-
-    //while(!isBalanced()) {
-    // rotate or double rotate
 }
 
 
