@@ -96,6 +96,63 @@ void AvlTree::upin(AvlTree::Node *n) {
     }
 }
 
+void AvlTree::upout(AvlTree::Node *n) {
+    //ausgangssituation: mit root aufrufen
+    int value = n->key;
+    cout << "value: " << value << endl;
+    calculateBalance(n);
+    //durch baum von oben nach unten gehen und balance anpassen
+    if (n->right != nullptr) {
+
+        if(!isBalanced()) {
+
+            if (getParent(getParent(value)->key) != nullptr) {
+                if (getParent(getParent(value)->key)->bal > 1) { //grandparent
+                    leftRotate(getParent(n->key));
+                }
+            }
+            if (!isBalanced()) {
+                if (getParent(value) != nullptr) {
+                    if (getParent(getParent(value)->key) != nullptr) {
+                        if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
+                            if (getParent(getParent(getParent(value)->key)->key)->bal < -1) {
+                                leftRotate(getParent(n->key));
+                                rightRotate(getParent(n->key));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        upout(n->right);
+    }
+    if (n->left != nullptr) {
+
+        if (!isBalanced()) {
+
+            if (getParent(getParent(value)->key) != nullptr) {
+                if (getParent(getParent(value)->key)->bal < -1) {
+                    rightRotate(getParent(n->key));
+                }
+            }
+            if (!isBalanced()) {
+                if (getParent(value) != nullptr) {
+                    if (getParent(getParent(value)->key) != nullptr) {
+                        if (getParent(getParent(value)->key)->bal > 1) {
+
+
+                            rightRotate(n);
+                            leftRotate(getParent(getParent(n->key)->key));
+                        }
+                    }
+                }
+            }
+        }
+        upout(n->left);
+    }
+}
+
 void AvlTree::calculateBalance(AvlTree::Node *n) {
     if (n == nullptr) {
         return;
@@ -199,62 +256,6 @@ bool AvlTree::Node::search(const int value) const {
 /********************************************************************
  * Insert
  *******************************************************************/
-
-/*
-//Maybe idea for insert but not working yet
-
-void AvlTree::insert(int value) {
-    //insert in empty tree
-    if (root == nullptr) {
-        root = new Node(value, 0);
-        calculateBalance(root);
-    }
-    else
-        insert(root, value);
-}
-
-AvlTree::Node* AvlTree::insert(Node *r, int value) {
-
-    if (r == nullptr) {
-        r = new Node(value, 0);
-        r->left = nullptr;
-        r->right = nullptr;
-        return r;
-        //has to be balanced because only one node
-    }
-
-    //value is in the left part of the tree
-    else if (value < r->key)    {
-        if (r->bal == 1) {
-
-            r->left = insert(r->left, value);
-            calculateBalance(r->left);
-            upin(r);
-            while (!isBalanced()) {
-                //rotate oder doublerotate
-            }
-        }
-
-        return r->left;
-
-    }
-
-    //value is on right side of the tree
-    else if (value >= r->key)  {
-
-        r->right = insert(r->right, value);
-        calculateBalance(r->right);
-        upin(r->right);
-        while (!isBalanced()) {
-            //rotate oder doublerotate
-        }
-        return r->right;
-    }
-
-
-}
-*/
-
 
 void AvlTree::insert(int value) {
     //insert in empty tree
@@ -384,10 +385,14 @@ void AvlTree::remove(const int value) {
                 root = new Node(symSucc->key, 0, root->left, root->right);
                 calculateBalance(root);
                 delete toDeleteNode;
+                upout(root);
             }
             toDelete->left = nullptr;
             toDelete->right = nullptr;
             delete toDelete;
+            if(!isEmpty()) {
+                upout(root);
+            }
         } else
             remove(root, value);
     }

@@ -97,6 +97,8 @@ public:
 
     void upin(Node*);
 
+    void upout(Node*);
+
     void rightRotate(Node *);
 
     void leftRotate(Node *);
