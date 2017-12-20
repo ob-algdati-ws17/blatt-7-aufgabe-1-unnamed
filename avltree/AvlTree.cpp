@@ -280,6 +280,7 @@ void AvlTree::insert(int value) {
 
 void AvlTree::insert(int value, AvlTree::Node *parent) {
     //value already exists - no insertion
+    cout << value << endl;
     if (search(value))
         return;
 
@@ -296,9 +297,21 @@ void AvlTree::insert(int value, AvlTree::Node *parent) {
                     rightRotate(getParent(parent->key));
                 }
                     //wenn balance (parent(parent(left))) > 1 und ganz links --> rightrotate leftrotate
-                else if (getParent(value)->bal > 1) {
+                /*else if (getParent(value)->bal > 1) {
                     rightRotate(parent->left);
                     leftRotate(getParent(value));
+                }*/
+            }
+            if (!isBalanced()) {
+                if (getParent(value) != nullptr) {
+                    if (getParent(getParent(value)->key) != nullptr) {
+                        if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
+                            if (getParent(getParent(getParent(value)->key)->key)->bal > 1) {
+                                rightRotate(getParent(parent->key));
+                                leftRotate(getParent(parent->key));
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -318,10 +331,27 @@ void AvlTree::insert(int value, AvlTree::Node *parent) {
                     leftRotate(getParent(parent->key));
                 }
                     //wenn balance (parent(parent(right))) < -1 und ganz rechts --> leftrotate rightrotate
-                else if (getParent(getParent(value)->key)->bal < -1) {
-                    cout << "zweites if" << endl;
+                /*else if (getParent(getParent(value)->key)->bal < -1) {
                     leftRotate(getParent(parent->key));
                     rightRotate(getParent(parent->key));
+                }*/
+                cout << "before greatgrandparent if" << endl;
+
+            }
+            cout << "right before ggp if" << endl;
+            cout << value << endl;
+            if (!isBalanced()) {
+                if (getParent(value) != nullptr) {
+                    if (getParent(getParent(value)->key) != nullptr) {
+                        if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
+                            cout << "Greatgrandparent ist nicht nullptr" << endl;
+                            if (getParent(getParent(getParent(value)->key)->key)->bal < -1) {
+                                cout << "Greatgrandparent" << endl;
+                                leftRotate(getParent(parent->key));
+                                rightRotate(getParent(parent->key));
+                            }
+                        }
+                    }
                 }
             }
         }

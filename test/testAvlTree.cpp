@@ -134,6 +134,6 @@ TEST(TreeTest, Left_Right) {
     avl.insert(4);
     avl.insert(6);
     EXPECT_TRUE(avl.isBalanced());
-    //avl.insert(7);
+    avl.insert(7);
     EXPECT_TRUE(avl.isBalanced());
 }
