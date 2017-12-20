@@ -50,11 +50,6 @@ private:
          */
         bool isBalanced(Node*);
 
-
-        /*
-        Node *remove(const int);
-         */
-
         /**
          * Preordered walkthrough.
          * @return Root, left tree, right tree.
@@ -106,6 +101,8 @@ public:
 
     void leftRotate(Node *);
 
+    Node *remove(Node *, const int);
+
 
     /**
      * Method to get node before given node.
@@ -151,11 +148,9 @@ public:
          */
     void insert(const int, Node*);
 
-    /*
+
 
     void remove(const int);
-
-     */
 
     /**
      * Preordered walkthrough.
@@ -175,11 +170,7 @@ public:
      */
     vector<int> *postorder() const; // (Nebenreihenfolge)
 
-    /*
-
     friend Node *findSymSucc(Node *);
-
-     */
 
     /**
      * To String method for tree.

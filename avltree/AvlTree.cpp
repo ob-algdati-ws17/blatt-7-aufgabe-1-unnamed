@@ -348,7 +348,7 @@ void AvlTree::insert(int value, AvlTree::Node *parent) {
  * Remove
  *******************************************************************/
 
-/*
+
 AvlTree::Node *findSymSucc(AvlTree::Node *node) {
     if (node->right == nullptr)
         return nullptr;
@@ -359,75 +359,83 @@ AvlTree::Node *findSymSucc(AvlTree::Node *node) {
     return result;
 }
 
+
 void AvlTree::remove(const int value) {
     if (root != nullptr) {
         if (root->key == value) {
             auto toDelete = root;
+            //root ohne Nachfolger
             if (root->left == nullptr && root->right == nullptr) {
                 root = nullptr;
+            //ein rechter Nachfolger
             } else if (root->left == nullptr) {
                 root = root->right;
+            //ein linker Nachfolger
             } else if (root->right == nullptr)
                 root = root->left;
+            //mehr als ein Nachfolger
             else {
                 auto symSucc = findSymSucc(root);
                 auto toDeleteNode = symSucc;
-                root->right = root->right->remove(symSucc->key);
+                //Aufruf neu!!!
+                root->right = remove(root, symSucc->key);
                 toDeleteNode->left = nullptr;
                 toDeleteNode->right = nullptr;
-                root = new Node(symSucc->key, root->left, root->right);
+                root = new Node(symSucc->key, 0, root->left, root->right);
+                calculateBalance(root);
                 delete toDeleteNode;
             }
             toDelete->left = nullptr;
             toDelete->right = nullptr;
             delete toDelete;
         } else
-            root->remove(value);
+            remove(root, value);
     }
 }
 
-AvlTree::Node *AvlTree::Node::remove(const int value) {
 
-    if (value < key) {
-        if (left != nullptr) {
-            auto toDelete = left;
-            left = left->remove(value);
+AvlTree::Node *AvlTree::remove(AvlTree::Node *n, const int value) {
+
+    if (value < n->key) {
+        if (n->left != nullptr) {
+            auto toDelete = n->left;
+            n->left = remove(n->left, value);
             if (toDelete->key == value) {
                 toDelete->left = nullptr;
                 toDelete->right = nullptr;
                 delete toDelete;
             }
         }
-        return this;
+        return n->left;
     }
 
-    if (value > key) {
-        if (right != nullptr) {
-            auto toDelete = right;
-            right = right->remove(value);
+    if (value > n->key) {
+        if (n->right != nullptr) {
+            auto toDelete = n->right;
+            n->right = remove(n->right, value);
             if (toDelete->key == value) {
                 toDelete->left = nullptr;
                 toDelete->right = nullptr;
                 delete toDelete;
             }
         }
-        return this;
+        return n;
     }
 
-    if (key == value) {
-        if (left == nullptr && right == nullptr)
+    if (n->key == value) {
+        if (n->left == nullptr && n->right == nullptr)
             return nullptr;
-        if (left == nullptr)
-            return right;
-        if (right == nullptr)
-            return left;
-        auto symSucc = findSymSucc(this);
-        return new Node(symSucc->key, left, right->remove(symSucc->key));
+        if (n->left == nullptr)
+            return n->right;
+        if (n->right == nullptr)
+            return n->left;
+        auto symSucc = findSymSucc(n);
+        return new Node(symSucc->key, 0, n->left, remove(n->right, symSucc->key));
     }
     // code should not be reached, just to make the compiler happy
     return nullptr;
 }
-*/
+
 
 /********************************************************************
  * Traversal

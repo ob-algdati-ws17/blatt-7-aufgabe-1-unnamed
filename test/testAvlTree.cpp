@@ -121,8 +121,6 @@ TEST(TreeTest, Ten_Nodes_Right) {
 
 }
 
-
-
 TEST(TreeTest, Left_Right) {
     AvlTree avl;
     avl.insert(13);
@@ -151,5 +149,43 @@ TEST(TreeTest, Right_Left) {
     avl.insert(16);
     EXPECT_TRUE(avl.isBalanced());
     avl.insert(15);
+    EXPECT_TRUE(avl.isBalanced());
+}
+
+TEST(TreeTest, Simple_Remove) {
+    AvlTree avl;
+    avl.insert(1);
+    avl.remove(1);
+    EXPECT_FALSE(avl.search(1));
+    avl.insert(1);
+    avl.insert(3);
+    EXPECT_TRUE(avl.search(1));
+    avl.remove(1);
+    EXPECT_FALSE(avl.search(1));
+}
+
+TEST(TreeTest, Remove_Nullptr) {
+    AvlTree avl;
+    avl.remove(1);
+    EXPECT_TRUE(avl.isBalanced());
+}
+
+TEST(TreeTest, Remove_Three_Nodes) {
+    AvlTree avl;
+    avl.insert(1);
+    avl.insert(2);
+    avl.insert(3);
+    EXPECT_TRUE(avl.isBalanced());
+    avl.remove(2);
+    EXPECT_TRUE(avl.isBalanced());
+}
+
+TEST(TreeTest, Remove_Four_Nodes) {
+    AvlTree avl;
+    avl.insert(4);
+    avl.insert(2);
+    avl.insert(5);
+    avl.insert(3);
+    avl.remove(2);
     EXPECT_TRUE(avl.isBalanced());
 }
