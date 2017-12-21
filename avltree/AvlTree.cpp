@@ -121,6 +121,11 @@ void AvlTree::upout(AvlTree::Node *n) {
                             }
                         }
                     }
+                    if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
+                        if (getParent(getParent(getParent(value)->key)->key)->bal > 1) {
+                            rightRotate(getParent(getParent(n->key)->key));
+                        }
+                    }
                 }
             }
         }
@@ -140,9 +145,12 @@ void AvlTree::upout(AvlTree::Node *n) {
                 if (getParent(value) != nullptr) {
                     if (getParent(getParent(value)->key) != nullptr) {
                         if (getParent(getParent(value)->key)->bal > 1) {
-
-
                             rightRotate(n);
+                            leftRotate(getParent(getParent(n->key)->key));
+                        }
+                    }
+                    if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
+                        if (getParent(getParent(getParent(value)->key)->key)->bal < -1) {
                             leftRotate(getParent(getParent(n->key)->key));
                         }
                     }
@@ -181,7 +189,7 @@ void AvlTree::rightRotate(AvlTree::Node *n) {
         auto y = n->left;
         n->left = y->right;
         y->right = n;
-        root = n;
+        root = y;
 
         calculateBalance(n);
         calculateBalance(y);
@@ -210,9 +218,10 @@ void AvlTree::rightRotate(AvlTree::Node *n) {
 void AvlTree::leftRotate(AvlTree::Node *n) {
     if (getParent(n->key) == nullptr) {
         auto y = n->right;
+        auto z = n->right->right;
         n->right = y->left;
         y->left = n;
-        root = n;
+        root = y;
 
         calculateBalance(n);
         calculateBalance(y);
@@ -296,12 +305,15 @@ void AvlTree::insert(int value, AvlTree::Node *parent) {
                         //if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
                             //if (getParent(getParent(getParent(value)->key)->key)->bal > 1) {
                                 if (getParent(getParent(value)->key)->bal > 1) {
-
-
-                                rightRotate((parent));
+                                    rightRotate((parent));
                                     leftRotate(getParent(getParent(parent->key)->key));
                             }
                         //}
+                    }
+                    if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
+                        if (getParent(getParent(getParent(value)->key)->key)->bal < -1) {
+                            rightRotate(getParent(getParent(parent->key)->key));
+                        }
                     }
                 }
             }
@@ -336,6 +348,11 @@ void AvlTree::insert(int value, AvlTree::Node *parent) {
                             }
                         }
                     }
+                    if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
+                        if (getParent(getParent(getParent(value)->key)->key)->bal > 1) {
+                            leftRotate(getParent(getParent(parent->key)->key));
+                        }
+                    }
                 }
             }
         }
@@ -351,12 +368,14 @@ void AvlTree::insert(int value, AvlTree::Node *parent) {
 
 
 AvlTree::Node *findSymSucc(AvlTree::Node *node) {
+    cout << "node.key in symsucc: " << node->key << endl;
     if (node->right == nullptr)
         return nullptr;
     auto result = node->right;
     while (result->left != nullptr) {
         result = result->left;
     }
+    //cout << "symsucc result " << result->key << endl;
     return result;
 }
 
@@ -393,8 +412,9 @@ void AvlTree::remove(const int value) {
             if(!isEmpty()) {
                 upout(root);
             }
-        } else
+        } else {
             remove(root, value);
+        }
     }
 }
 
@@ -404,7 +424,22 @@ AvlTree::Node *AvlTree::remove(AvlTree::Node *n, const int value) {
     if (value < n->key) {
         if (n->left != nullptr) {
             auto toDelete = n->left;
+            cout << "n left " << n->left->key << endl;
             n->left = remove(n->left, value);
+            if (toDelete->key == value) {
+                toDelete->left = nullptr;
+                toDelete->right = nullptr;
+                delete toDelete;
+            }
+        }
+        return n->right;
+    }
+
+    if (value > n->key) {
+        if (n->right != nullptr) {
+            auto toDelete = n->right;
+            cout << "n right " << n->right->key << endl;
+            n->right = remove(n->right, value);
             if (toDelete->key == value) {
                 toDelete->left = nullptr;
                 toDelete->right = nullptr;
@@ -414,28 +449,20 @@ AvlTree::Node *AvlTree::remove(AvlTree::Node *n, const int value) {
         return n->left;
     }
 
-    if (value > n->key) {
-        if (n->right != nullptr) {
-            auto toDelete = n->right;
-            n->right = remove(n->right, value);
-            if (toDelete->key == value) {
-                toDelete->left = nullptr;
-                toDelete->right = nullptr;
-                delete toDelete;
-            }
-        }
-        return n;
-    }
-
     if (n->key == value) {
-        if (n->left == nullptr && n->right == nullptr)
+        if (n->left == nullptr && n->right == nullptr) {
             return nullptr;
+        }
         if (n->left == nullptr)
             return n->right;
         if (n->right == nullptr)
             return n->left;
         auto symSucc = findSymSucc(n);
-        return new Node(symSucc->key, 0, n->left, remove(n->right, symSucc->key));
+        auto symSucc2 = symSucc->key;
+        auto nright2 = n->right;
+        remove(n->right, symSucc->key);
+        cout << symSucc2 << endl;
+        return new Node(symSucc2, 0, n->left, nright2);
     }
     // code should not be reached, just to make the compiler happy
     return nullptr;
@@ -521,7 +548,7 @@ vector<int> *AvlTree::Node::postorder() const {
  *******************************************************************/
 
 std::ostream &operator<<(std::ostream &os, const AvlTree &tree) {
-    function<void(std::ostream &, const int, const AvlTree::Node *, const string)> printToOs = [&](std::ostream &os,
+    function<void(std::ostream &, const int, const AvlTree::Node *, const string)> printToOs = [&](std::ostream &,
                                                                                                    const int value,
                                                                                                    const AvlTree::Node *node,
                                                                                                    const string l) {
