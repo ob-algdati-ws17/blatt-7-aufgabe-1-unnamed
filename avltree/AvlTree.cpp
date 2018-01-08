@@ -435,7 +435,10 @@ void AvlTree::remove(const int value) {
                 root = new Node(symSucc->key, 0, root->left, root->right);
                 calculateBalance(root);
                 delete toDeleteNode;
-                upout(root);
+                if (!isBalanced()) {
+                    upout(root);
+                }
+
             }
             toDelete->left = nullptr;
             toDelete->right = nullptr;
@@ -446,10 +449,20 @@ void AvlTree::remove(const int value) {
         } else {
             //cout << "nicht root loeschen" << endl;
 
-            auto lastItem = getParent(value);
-            //cout << "LastItem um upout aufzurufen " << lastItem->key << endl;
-            remove(root, value);
-            upout(lastItem);
+            if (getParent(value) != nullptr) {
+                auto lastItem = getParent(value);
+                remove(root, value);
+                if (!isBalanced()) {
+                    upout(lastItem);
+                }
+            }
+            else {
+                cout << "parent is nullptr" << endl;
+                remove(root, value);
+                if (!isBalanced()) {
+                    upout(root);
+                }
+            }
         }
     }
 }
