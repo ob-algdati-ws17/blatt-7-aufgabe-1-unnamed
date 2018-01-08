@@ -41,6 +41,7 @@ bool AvlTree::Node::isBalanced(AvlTree::Node *r) {
     }
     else {
         if (r->bal <= 1 && r->bal >= -1) {
+            //cout << "calculate balance not nullptr" << endl;
             bool righttrue = isBalanced(r->left);
             bool lefttrue = isBalanced(r->right);
             if (righttrue && lefttrue) {
@@ -97,21 +98,45 @@ void AvlTree::upin(AvlTree::Node *n) {
 }
 
 void AvlTree::upout(AvlTree::Node *n) {
+    cout << "upout starts here" << endl;
+
     //ausgangssituation: mit root aufrufen
     int value = n->key;
-    cout << "value: " << value << endl;
-    calculateBalance(n);
+    cout << "value in upout: " << value << endl;
+
+    calculateBalance(root);
+    cout << "balance von n " << n->bal << endl;
+
+    if (n->bal >= -1 && n->bal <= 1) {
+        if (getParent(n->key) != nullptr) {
+            upout(getParent(n->key));
+        }
+    }
+    cout << "nach if-Abfrage in upout" << endl;
+
     //durch baum von oben nach unten gehen und balance anpassen
-    if (n->right != nullptr) {
+    //if (n->right != nullptr) {
 
-        if(!isBalanced()) {
+        //if(!isBalanced()) {
+    if (!isBalanced()) {
+        cout << "nicht balanced " << endl;
+    }
 
-            if (getParent(getParent(value)->key) != nullptr) {
-                if (getParent(getParent(value)->key)->bal > 1) { //grandparent
-                    leftRotate(getParent(n->key));
+            cout << "aktelles n: " << n->key << endl;
+            cout << "aktuelle bal: " << n->bal << endl;
+
+                if (n->bal > 1) { //grandparent
+                    leftRotate(n);
                 }
-            }
-            if (!isBalanced()) {
+
+                if (n->bal < -1) {
+                    cout << "n im rightRotate " << n->key << endl;
+                    rightRotate(n);
+                }
+
+
+
+           /* if (!isBalanced()) {
                 if (getParent(value) != nullptr) {
                     if (getParent(getParent(value)->key) != nullptr) {
                         if (getParent(getParent(getParent(value)->key)->key) != nullptr) {
@@ -128,10 +153,11 @@ void AvlTree::upout(AvlTree::Node *n) {
                     }
                 }
             }
-        }
+        //}
 
-        upout(n->right);
-    }
+        //upout(getParent(value));
+    //}
+
     if (n->left != nullptr) {
 
         if (!isBalanced()) {
@@ -157,8 +183,8 @@ void AvlTree::upout(AvlTree::Node *n) {
                 }
             }
         }
-        upout(n->left);
-    }
+        //upout(getParent(value));
+    }*/
 }
 
 void AvlTree::calculateBalance(AvlTree::Node *n) {
@@ -166,6 +192,8 @@ void AvlTree::calculateBalance(AvlTree::Node *n) {
         return;
     } else {
         n->bal = getHeight(n->right) - getHeight(n->left);
+        //calculateBalance(n->right);
+        //calculateBalance(n->left);
         return;
     }
 }
@@ -368,7 +396,7 @@ void AvlTree::insert(int value, AvlTree::Node *parent) {
 
 
 AvlTree::Node *findSymSucc(AvlTree::Node *node) {
-    cout << "node.key in symsucc: " << node->key << endl;
+    //cout << "node.key in symsucc: " << node->key << endl;
     if (node->right == nullptr)
         return nullptr;
     auto result = node->right;
@@ -383,6 +411,7 @@ AvlTree::Node *findSymSucc(AvlTree::Node *node) {
 void AvlTree::remove(const int value) {
     if (root != nullptr) {
         if (root->key == value) {
+            //cout << "remove root" << endl;
             auto toDelete = root;
             //root ohne Nachfolger
             if (root->left == nullptr && root->right == nullptr) {
@@ -395,10 +424,12 @@ void AvlTree::remove(const int value) {
                 root = root->left;
             //mehr als ein Nachfolger
             else {
+                //cout << "root hat nachfolger" << endl;
                 auto symSucc = findSymSucc(root);
                 auto toDeleteNode = symSucc;
-                //Aufruf neu!!!
+                //Aufruf neu!!! Hier muss root->right zum nullptr werden
                 root->right = remove(root, symSucc->key);
+                //cout << "root-right" << root->right->key << endl;
                 toDeleteNode->left = nullptr;
                 toDeleteNode->right = nullptr;
                 root = new Node(symSucc->key, 0, root->left, root->right);
@@ -413,7 +444,12 @@ void AvlTree::remove(const int value) {
                 upout(root);
             }
         } else {
+            //cout << "nicht root loeschen" << endl;
+
+            auto lastItem = getParent(value);
+            //cout << "LastItem um upout aufzurufen " << lastItem->key << endl;
             remove(root, value);
+            upout(lastItem);
         }
     }
 }
@@ -422,35 +458,45 @@ void AvlTree::remove(const int value) {
 AvlTree::Node *AvlTree::remove(AvlTree::Node *n, const int value) {
 
     if (value < n->key) {
+        //cout << "32 < 44" << endl;
         if (n->left != nullptr) {
             auto toDelete = n->left;
-            cout << "n left " << n->left->key << endl;
+            //cout << "n left " << n->left->key << endl;
             n->left = remove(n->left, value);
+            //cout << "n " << n->key << endl;
             if (toDelete->key == value) {
                 toDelete->left = nullptr;
                 toDelete->right = nullptr;
                 delete toDelete;
             }
         }
-        return n->right;
+        //upout(n);
+        return n;
     }
 
     if (value > n->key) {
+        //cout << "32 > 17" << endl;
         if (n->right != nullptr) {
+            //cout << "n.right ist nicht nullptr" << endl;
             auto toDelete = n->right;
-            cout << "n right " << n->right->key << endl;
+            //cout << "n right " << n->right->key << endl;
             n->right = remove(n->right, value);
+            //cout << "n: " << n->key << endl;
+            //cout << "toDelete.key " << toDelete->key << endl;
             if (toDelete->key == value) {
                 toDelete->left = nullptr;
                 toDelete->right = nullptr;
                 delete toDelete;
             }
         }
-        return n->left;
+        //upout(n);
+        return n;
     }
 
     if (n->key == value) {
+        //cout << "32 loeschen" << endl;
         if (n->left == nullptr && n->right == nullptr) {
+            //cout << "return nullptr fuer 32" << endl;
             return nullptr;
         }
         if (n->left == nullptr)
@@ -461,7 +507,7 @@ AvlTree::Node *AvlTree::remove(AvlTree::Node *n, const int value) {
         auto symSucc2 = symSucc->key;
         auto nright2 = n->right;
         remove(n->right, symSucc->key);
-        cout << symSucc2 << endl;
+        //cout << symSucc2 << endl;
         return new Node(symSucc2, 0, n->left, nright2);
     }
     // code should not be reached, just to make the compiler happy
