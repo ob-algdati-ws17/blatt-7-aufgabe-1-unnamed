@@ -11,6 +11,8 @@ using namespace std;
 // isEmpty() == true
 // isBalanced() == true
 
+
+
 TEST(TreeTest, Test_EmptyTree) {
     AvlTree avl;
     EXPECT_TRUE(avl.isEmpty());
@@ -172,7 +174,7 @@ TEST(TreeTest, Remove_Nullptr) {
     EXPECT_TRUE(avl.isBalanced());
 }
 
-
+/*
 
 TEST(TreeTest, Remove_Three_Nodes) {
     AvlTree avl;
@@ -180,11 +182,11 @@ TEST(TreeTest, Remove_Three_Nodes) {
     avl.insert(2);
     avl.insert(3);
     EXPECT_TRUE(avl.isBalanced());
-  //  avl.remove(2);
+    avl.remove(2);
     EXPECT_TRUE(avl.isBalanced());
 }
 
-/*
+*/
 
 TEST(TreeTest, Remove_Four_Nodes) {
     AvlTree avl;
@@ -195,6 +197,7 @@ TEST(TreeTest, Remove_Four_Nodes) {
     avl.remove(2);
     EXPECT_TRUE(avl.isBalanced());
 }
+
 
 
 TEST(TreeTest, Remove_with_LeftRotate) {
@@ -228,4 +231,3 @@ TEST(TreeTest, Remove_With_Rotate_2) {
     EXPECT_TRUE(avl.isBalanced());
 }
 
-*/

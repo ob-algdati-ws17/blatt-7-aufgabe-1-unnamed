@@ -192,8 +192,8 @@ void AvlTree::calculateBalance(AvlTree::Node *n) {
         return;
     } else {
         n->bal = getHeight(n->right) - getHeight(n->left);
-        //calculateBalance(n->right);
-        //calculateBalance(n->left);
+        calculateBalance(n->right);
+        calculateBalance(n->left);
         return;
     }
 }
@@ -426,16 +426,25 @@ void AvlTree::remove(const int value) {
             else {
                 //cout << "root hat nachfolger" << endl;
                 auto symSucc = findSymSucc(root);
+                int symSuccKey = symSucc->key;
                 auto toDeleteNode = symSucc;
                 //Aufruf neu!!! Hier muss root->right zum nullptr werden
-                root->right = remove(root, symSucc->key);
+                root->right = remove(root, symSucc->key)->right;
                 //cout << "root-right" << root->right->key << endl;
                 toDeleteNode->left = nullptr;
                 toDeleteNode->right = nullptr;
-                root = new Node(symSucc->key, 0, root->left, root->right);
+                cout << "SymSucc.key: " << symSuccKey << endl;
+                root = new Node(symSuccKey, 0, root->left, root->right);
+                //cout << "nach neuem root erstellen" << endl;
+                //cout << "neuer Root: " << root->key << endl;
+                //cout << "neuer Root.left: " << root->left->key << endl;
+                cout << "root.right: " << root->right->key << endl;
                 calculateBalance(root);
+                cout << "Balance calculated " << endl;
+                cout << "Balance root: " << root->bal << " Balance left: " << root->left->bal << endl;
                 delete toDeleteNode;
                 if (!isBalanced()) {
+                    cout << "Baum nicht balanced" << endl;
                     upout(root);
                 }
 
@@ -447,17 +456,15 @@ void AvlTree::remove(const int value) {
                 upout(root);
             }
         } else {
-            //cout << "nicht root loeschen" << endl;
-
             if (getParent(value) != nullptr) {
                 auto lastItem = getParent(value);
                 remove(root, value);
+                calculateBalance(root);
                 if (!isBalanced()) {
                     upout(lastItem);
                 }
             }
             else {
-                cout << "parent is nullptr" << endl;
                 remove(root, value);
                 if (!isBalanced()) {
                     upout(root);
@@ -483,7 +490,6 @@ AvlTree::Node *AvlTree::remove(AvlTree::Node *n, const int value) {
                 delete toDelete;
             }
         }
-        //upout(n);
         return n;
     }
 
@@ -502,7 +508,6 @@ AvlTree::Node *AvlTree::remove(AvlTree::Node *n, const int value) {
                 delete toDelete;
             }
         }
-        //upout(n);
         return n;
     }
 
