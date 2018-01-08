@@ -127,11 +127,13 @@ void AvlTree::upout(AvlTree::Node *n) {
 
                 if (n->bal > 1) { //grandparent
                     leftRotate(n);
+                    upout(n);
                 }
 
                 if (n->bal < -1) {
                     cout << "n im rightRotate " << n->key << endl;
                     rightRotate(n);
+                    upout(n);
                 }
 
 

@@ -198,6 +198,25 @@ TEST(TreeTest, Remove_Four_Nodes) {
     EXPECT_TRUE(avl.isBalanced());
 }
 
+TEST(TreeTest, Remove_with_DoubleRotate) {
+    AvlTree avl;
+    avl.insert(5);
+    avl.insert(3);
+    avl.insert(8);
+    avl.insert(2);
+    avl.insert(4);
+    avl.insert(7);
+    avl.insert(11);
+    avl.insert(1);
+    avl.insert(6);
+    avl.insert(10);
+    avl.insert(12);
+    avl.insert(9);
+    EXPECT_TRUE(avl.isBalanced());
+    avl.remove(4);
+    EXPECT_TRUE(avl.isBalanced());
+}
+
 
 
 TEST(TreeTest, Remove_with_LeftRotate) {
@@ -220,14 +239,20 @@ TEST(TreeTest, Remove_with_LeftRotate) {
 
 TEST(TreeTest, Remove_With_Rotate_2) {
     AvlTree avl;
-    avl.insert(6);
-    avl.insert(4);
-    avl.insert(9);
-    avl.insert(1);
-    avl.insert(5);
     avl.insert(8);
+    avl.insert(5);
     avl.insert(10);
+    avl.insert(2);
+    avl.insert(6);
+    avl.insert(9);
+    avl.insert(11);
+    avl.insert(1);
+    avl.insert(3);
     avl.insert(7);
+    avl.insert(12);
+    avl.insert(4);
+    EXPECT_TRUE(avl.isBalanced());
+    avl.remove(9);
     EXPECT_TRUE(avl.isBalanced());
 }
 
