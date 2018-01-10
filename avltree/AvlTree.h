@@ -10,24 +10,36 @@
 
 using namespace std;
 
-
+/**
+ * Class for our AvlTree.
+ */
 class AvlTree {
 
 
 private:
 
+    /**
+     * Structure for a node in AvlTree. Key and balance for searchtree and pointer for left and right.
+     */
     struct Node {
         const int key;
         int bal;
-        Node *parent = nullptr;
+        //Node *parent = nullptr;
         Node *left = nullptr;
         Node *right = nullptr;
 
 
+        /**
+         * Basic Ccnstructor for node.
+         * @param key and balance (default 0).
+         * @return new node.
+         */
         Node(const int, int);
 
         /**
          * Constructor for node.
+         * @param key and balance (dafault 0); Pointers on following nodes left and right.
+         * @return new node.
          */
         Node(const int, int, Node *, Node *);
 
@@ -38,15 +50,15 @@ private:
 
         /**
          * Search given value in tree.
-         * @param value Integer value that has to be searched.
+         * @param Integer value that has to be searched.
          * @return true if value is in the tree, false if value cannot be found.
          */
         bool search(const int) const;
 
         /**
-         * Method to check if avl tree is balanced.
-         * @param Node to be checked if balanced.
-         * @return true if balance is -1, 0, 1, false if not.
+         * Method to check if AvlTree is balanced.
+         * @param Node from which the tree is checked if it is balanced.
+         * @return true if every balance is -1, 0, 1, false if not.
          */
         bool isBalanced(Node*);
 
@@ -70,6 +82,9 @@ private:
 
     };
 
+    /**
+     * Root is the root of a new AvlTree.
+     */
     Node *root = nullptr;
 
 public:
@@ -80,42 +95,74 @@ public:
     ~AvlTree();
 
     /**
-     * Method to check if avl Tree is empty.
+     * Method to check if AvlTree is empty.
      * @return true if tree is empty, false if tree is not empty.
      */
     bool isEmpty() const;
 
+    /**
+     * Method for getting the parent of any node in the AvlTree.
+     * @param key (as int) of the node whose parent is needed.
+     * @return Node of the parent.
+     */
     Node* getParent(int);
 
+    /**
+     * Method for getting the parent of any node in the AvlTree (recursive).
+     * @param Node from which part of the tree the parent is needed and the key (as int) of the Node whose parent is looked for.
+     * @return Node of the parent.
+     */
     Node* getParent(Node*, int);
 
+    /**
+     * Method to check, if the whole AvlTree is balanced.
+     * @return true, if the tree is balanced, false if any node is not in balance.
+     */
     bool isBalanced();
 
+    /**
+     * Method to calculate the balance of a node and updates the balance factor of the node.
+     * @param Node whose balance needs to be calculated.
+     */
     void calculateBalance(Node *);
 
+    /**
+     * Method to calculate the height of a node.
+     * @param Node whose height is looked for.
+     * @return integer heigt of the given node.
+     */
     int getHeight(Node *);
 
+    /**
+     * Method to update the balance factors of any changes after inserting a new node.
+     * @param Node which has just been inserted.
+     */
     void upin(Node*);
 
+    /**
+     * Mathod to update the balance and rotate the tree if necessary, after a node has been removed.
+     * @param root node from which the balance is updated.
+     */
     void upout(Node*);
 
+    /**
+     * Method to rotate the AvlTree to the right to assure the balance.
+     * @param Node which needs to be rotated.
+     */
     void rightRotate(Node *);
 
+    /**
+     * Method to rotate the AvlTree to the left to assure the balance.
+     * @param Node which needs to be rotated.
+     */
     void leftRotate(Node *);
 
+    /**
+     * Method to remove a Node from the AvlTree.
+     * @param Node, from which the given key is looked for and the key of node to be removed.
+     * @return Node which moved one stage up.
+     */
     Node *remove(Node *, const int);
-
-
-    /**
-     * Method to get node before given node.
-     * @return Parent node.
-     */
-
-
-    /**
-     * Method to update balance on path to given (new inserted) node.
-     */
-
 
     /**
      * Search given value in tree.
@@ -125,33 +172,23 @@ public:
     bool search(const int) const;
 
     /**
-     * Calculate balance.
-     * @param n Node pointer which balance has to be calculated.
-     * @return balance (here: between -1 and 1).
-     */
-
-
-    /**
-     * Get height.
-     * @param n Node pointer which height has to be calculated.
-     * @return height, number of longest path after node.
-     */
-
-
-    /**
      * Insert a value in the tree.
      * @param value Integer value that has to be inserted.
      */
     void insert(const int);
 
     /**
-         * Insert a given value in the tree.
-         * @param value Integer value that has to be inserted.
-         */
+     * Insert a given value in the tree.
+     * @param value Integer value that has to be inserted.
+     */
     void insert(const int, Node*);
 
 
-
+    /**
+     * Method to remove a Node from the AvlTree.
+     * @param key of node to be removed.
+     * @return Node which moved one stage up.
+     */
     void remove(const int);
 
     /**
@@ -172,6 +209,11 @@ public:
      */
     vector<int> *postorder() const; // (Nebenreihenfolge)
 
+    /**
+     * Method to find the symmetrical follower for a node which is about to be removed.
+     * @param Node who is about to removed and whose symmetrical follower is needed.
+     * @return symmetrical follower.
+     */
     friend Node *findSymSucc(Node *);
 
     /**
