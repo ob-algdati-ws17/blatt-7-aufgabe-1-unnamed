@@ -154,6 +154,66 @@ TEST(TreeTest, Right_Left) {
     EXPECT_TRUE(avl.isBalanced());
 }
 
+TEST(TreeTest, Insert_increased_Order) {
+    AvlTree avl;
+    avl.insert(1);
+    avl.insert(2);
+    avl.insert(3);
+    avl.insert(4);
+    avl.insert(5);
+    avl.insert(6);
+    avl.insert(7);
+    avl.insert(8);
+    avl.insert(9);
+    avl.insert(10);
+    EXPECT_TRUE(avl.isBalanced());
+}
+
+TEST(TreeTest, Insert_decrease_Order) {
+    AvlTree avl;
+    avl.insert(10);
+    avl.insert(9);
+    avl.insert(8);
+    avl.insert(7);
+    avl.insert(6);
+    avl.insert(5);
+    avl.insert(4);
+    avl.insert(3);
+    avl.insert(2);
+    avl.insert(1);
+    EXPECT_TRUE(avl.isBalanced());
+}
+
+TEST(TreeTest, Insert_random_Order) {
+    AvlTree avl;
+    avl.insert(4);
+    avl.insert(8);
+    avl.insert(2);
+    avl.insert(1);
+    avl.insert(5);
+    avl.insert(9);
+    avl.insert(10);
+    avl.insert(6);
+    avl.insert(3);
+    avl.insert(7);
+    EXPECT_TRUE(avl.isBalanced());
+}
+
+TEST(TreeTest, Insert_Same_Nodes) {
+    AvlTree avl;
+    avl.insert(4);
+    avl.insert(8);
+    avl.insert(4);
+    avl.insert(1);
+    avl.insert(5);
+    avl.insert(9);
+    avl.insert(10);
+    avl.insert(5);
+    avl.insert(3);
+    avl.insert(7);
+    EXPECT_TRUE(avl.isBalanced());
+}
+
 
 TEST(TreeTest, Simple_Remove) {
     AvlTree avl;
@@ -187,6 +247,55 @@ TEST(TreeTest, Remove_Three_Nodes) {
 }
 
 */
+
+TEST(TreeTest, Remove_unavailable_Node) {
+    AvlTree avl;
+    avl.insert(4);
+    avl.insert(2);
+    avl.insert(5);
+    avl.insert(3);
+    EXPECT_FALSE(avl.search(6));
+    avl.remove(6);
+    EXPECT_TRUE(avl.isBalanced());
+    EXPECT_FALSE(avl.search(6));
+}
+
+TEST(TreeTest, Remove_SameNodeTwice) {
+    AvlTree avl;
+    avl.insert(1);
+    avl.insert(2);
+    avl.insert(3);
+    avl.insert(4);
+    EXPECT_TRUE(avl.isBalanced());
+    avl.remove(1);
+    EXPECT_TRUE(avl.isBalanced());
+    EXPECT_FALSE(avl.search(1));
+    avl.remove(1);
+    EXPECT_FALSE(avl.search(1));
+    EXPECT_TRUE(avl.isBalanced());
+}
+
+TEST(TreeTest, Remove_LeftNode) {
+    AvlTree avl;
+    avl.insert(2);
+    avl.insert(1);
+    avl.insert(3);
+    EXPECT_TRUE(avl.isBalanced());
+    avl.remove(1);
+    EXPECT_TRUE(avl.isBalanced());
+    EXPECT_FALSE(avl.search(1));
+}
+
+TEST(TreeTest, Remove_RightNode) {
+    AvlTree avl;
+    avl.insert(2);
+    avl.insert(1);
+    avl.insert(3);
+    EXPECT_TRUE(avl.isBalanced());
+    avl.remove(3);
+    EXPECT_TRUE(avl.isBalanced());
+    EXPECT_FALSE(avl.search(3));
+}
 
 TEST(TreeTest, Remove_Four_Nodes) {
     AvlTree avl;
