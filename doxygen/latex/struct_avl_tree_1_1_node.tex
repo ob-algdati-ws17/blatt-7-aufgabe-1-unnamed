@@ -1,0 +1,140 @@
+\hypertarget{struct_avl_tree_1_1_node}{}\section{Avl\+Tree\+:\+:Node Struct Reference}
+\label{struct_avl_tree_1_1_node}\index{Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_avl_tree_1_1_node_a839da38cdb6f85ea5a62aae90b0715bc}{Node}} (const int, int)
+\item 
+\mbox{\hyperlink{struct_avl_tree_1_1_node_a5cecfa155288f9a123fe60206730bbce}{Node}} (const int, int, \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$, \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$)
+\item 
+\mbox{\hyperlink{struct_avl_tree_1_1_node_a772d991375b38b592da8a22f82ac343f}{$\sim$\+Node}} ()
+\item 
+bool \mbox{\hyperlink{struct_avl_tree_1_1_node_a9e6723c6082511451be1b87284201921}{search}} (const int) const
+\item 
+bool \mbox{\hyperlink{struct_avl_tree_1_1_node_aaacdd39b8f7f3ab623b4cacb28d098f9}{is\+Balanced}} (\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$)
+\item 
+vector$<$ int $>$ $\ast$ \mbox{\hyperlink{struct_avl_tree_1_1_node_a32cdbc0d1dece3f4885bf9eed0643dc0}{preorder}} () const
+\item 
+vector$<$ int $>$ $\ast$ \mbox{\hyperlink{struct_avl_tree_1_1_node_a6a079f1ec29ec22d78eda81218f61ead}{inorder}} () const
+\item 
+vector$<$ int $>$ $\ast$ \mbox{\hyperlink{struct_avl_tree_1_1_node_a66a6288a873ef3c15df03df04a5ad744}{postorder}} () const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_a5e019874462dc220f3ea60a67f155b37}\label{struct_avl_tree_1_1_node_a5e019874462dc220f3ea60a67f155b37}} 
+const int {\bfseries key}
+\item 
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_ad0f95ad3dc68259f55a05c7ecd9185ae}\label{struct_avl_tree_1_1_node_ad0f95ad3dc68259f55a05c7ecd9185ae}} 
+int {\bfseries bal}
+\item 
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_a5fe701754b58ee26f3a3dd6230521fe7}\label{struct_avl_tree_1_1_node_a5fe701754b58ee26f3a3dd6230521fe7}} 
+\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$ {\bfseries left} = nullptr
+\item 
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_a9fd500f3f0a514bb69939431b85e2913}\label{struct_avl_tree_1_1_node_a9fd500f3f0a514bb69939431b85e2913}} 
+\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$ {\bfseries right} = nullptr
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Structure for a node in \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}}. Key and balance for searchtree and pointer for left and right. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_a839da38cdb6f85ea5a62aae90b0715bc}\label{struct_avl_tree_1_1_node_a839da38cdb6f85ea5a62aae90b0715bc}} 
+\index{Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}!Node@{Node}}
+\index{Node@{Node}!Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}}
+\subsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Avl\+Tree\+::\+Node\+::\+Node (\begin{DoxyParamCaption}\item[{const int}]{k,  }\item[{int}]{h }\end{DoxyParamCaption})}
+
+Basic Ccnstructor for node. 
+\begin{DoxyParams}{Parameters}
+{\em key} & and balance (default 0). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_a5cecfa155288f9a123fe60206730bbce}\label{struct_avl_tree_1_1_node_a5cecfa155288f9a123fe60206730bbce}} 
+\index{Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}!Node@{Node}}
+\index{Node@{Node}!Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}}
+\subsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Avl\+Tree\+::\+Node\+::\+Node (\begin{DoxyParamCaption}\item[{const int}]{k,  }\item[{int}]{h,  }\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$}]{l,  }\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$}]{r }\end{DoxyParamCaption})}
+
+Constructor for node. 
+\begin{DoxyParams}{Parameters}
+{\em key} & and balance (dafault 0); Pointers on following nodes left and right. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_a772d991375b38b592da8a22f82ac343f}\label{struct_avl_tree_1_1_node_a772d991375b38b592da8a22f82ac343f}} 
+\index{Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}!````~Node@{$\sim$\+Node}}
+\index{````~Node@{$\sim$\+Node}!Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}}
+\subsubsection{\texorpdfstring{$\sim$\+Node()}{~Node()}}
+{\footnotesize\ttfamily Avl\+Tree\+::\+Node\+::$\sim$\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destrucor for node. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_a6a079f1ec29ec22d78eda81218f61ead}\label{struct_avl_tree_1_1_node_a6a079f1ec29ec22d78eda81218f61ead}} 
+\index{Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}!inorder@{inorder}}
+\index{inorder@{inorder}!Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}}
+\subsubsection{\texorpdfstring{inorder()}{inorder()}}
+{\footnotesize\ttfamily vector$<$ int $>$ $\ast$ Avl\+Tree\+::\+Node\+::inorder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Inordered walkthrouhg. \begin{DoxyReturn}{Returns}
+Left tree, root, right tree. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_aaacdd39b8f7f3ab623b4cacb28d098f9}\label{struct_avl_tree_1_1_node_aaacdd39b8f7f3ab623b4cacb28d098f9}} 
+\index{Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}!is\+Balanced@{is\+Balanced}}
+\index{is\+Balanced@{is\+Balanced}!Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}}
+\subsubsection{\texorpdfstring{is\+Balanced()}{isBalanced()}}
+{\footnotesize\ttfamily bool Avl\+Tree\+::\+Node\+::is\+Balanced (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$}]{r }\end{DoxyParamCaption})}
+
+Method to check if \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}} is balanced. 
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}}} & from which the tree is checked if it is balanced. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if every balance is -\/1, 0, 1, false if not. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_a66a6288a873ef3c15df03df04a5ad744}\label{struct_avl_tree_1_1_node_a66a6288a873ef3c15df03df04a5ad744}} 
+\index{Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}!postorder@{postorder}}
+\index{postorder@{postorder}!Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}}
+\subsubsection{\texorpdfstring{postorder()}{postorder()}}
+{\footnotesize\ttfamily vector$<$ int $>$ $\ast$ Avl\+Tree\+::\+Node\+::postorder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Postordered walkthrough. \begin{DoxyReturn}{Returns}
+Left tree, right tree, root. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_a32cdbc0d1dece3f4885bf9eed0643dc0}\label{struct_avl_tree_1_1_node_a32cdbc0d1dece3f4885bf9eed0643dc0}} 
+\index{Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}!preorder@{preorder}}
+\index{preorder@{preorder}!Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}}
+\subsubsection{\texorpdfstring{preorder()}{preorder()}}
+{\footnotesize\ttfamily vector$<$ int $>$ $\ast$ Avl\+Tree\+::\+Node\+::preorder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Preordered walkthrough. \begin{DoxyReturn}{Returns}
+Root, left tree, right tree. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_avl_tree_1_1_node_a9e6723c6082511451be1b87284201921}\label{struct_avl_tree_1_1_node_a9e6723c6082511451be1b87284201921}} 
+\index{Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}!search@{search}}
+\index{search@{search}!Avl\+Tree\+::\+Node@{Avl\+Tree\+::\+Node}}
+\subsubsection{\texorpdfstring{search()}{search()}}
+{\footnotesize\ttfamily bool Avl\+Tree\+::\+Node\+::search (\begin{DoxyParamCaption}\item[{const int}]{value }\end{DoxyParamCaption}) const}
+
+Search given value in tree. 
+\begin{DoxyParams}{Parameters}
+{\em Integer} & value that has to be searched. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if value is in the tree, false if value cannot be found. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Lisa/\+Desktop/\+Blatt 7 Algo/blatt-\/7-\/aufgabe-\/1-\/unnamed/avltree/Avl\+Tree.\+h\item 
+C\+:/\+Users/\+Lisa/\+Desktop/\+Blatt 7 Algo/blatt-\/7-\/aufgabe-\/1-\/unnamed/avltree/Avl\+Tree.\+cpp\end{DoxyCompactItemize}

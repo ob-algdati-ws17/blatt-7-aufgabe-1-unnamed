@@ -1,0 +1,333 @@
+\hypertarget{class_avl_tree}{}\section{Avl\+Tree Class Reference}
+\label{class_avl_tree}\index{Avl\+Tree@{Avl\+Tree}}
+
+
+{\ttfamily \#include $<$Avl\+Tree.\+h$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_avl_tree_ada89cb30925d36a56e3aab8768752468}{$\sim$\+Avl\+Tree}} ()
+\item 
+bool \mbox{\hyperlink{class_avl_tree_a62de2a25d97e2da309696ea2eef3fec4}{is\+Empty}} () const
+\item 
+\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$ \mbox{\hyperlink{class_avl_tree_ab48adaa9a4e224e2aaeb9c3f7732f5ba}{get\+Parent}} (int)
+\item 
+\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$ \mbox{\hyperlink{class_avl_tree_af64d3251ddc4687a6431c444896d0676}{get\+Parent}} (\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$, int)
+\item 
+bool \mbox{\hyperlink{class_avl_tree_af8f43d1139179e490fffbdd03f7735ac}{is\+Balanced}} ()
+\item 
+void \mbox{\hyperlink{class_avl_tree_a67133995c419d71beb98d55073ca4e50}{calculate\+Balance}} (\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$)
+\item 
+int \mbox{\hyperlink{class_avl_tree_acc21a0655380662e65d92da67c559377}{get\+Height}} (\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$)
+\item 
+void \mbox{\hyperlink{class_avl_tree_a82534eb18fc1294d06f769e4259cd6c2}{upin}} (\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$)
+\item 
+void \mbox{\hyperlink{class_avl_tree_a6e78b2e17818b32ff2716e50b844cc6c}{upout}} (\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$)
+\item 
+void \mbox{\hyperlink{class_avl_tree_adeeb1c5c0d60556f57f775386fd023b4}{right\+Rotate}} (\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$)
+\item 
+void \mbox{\hyperlink{class_avl_tree_a571fee829f821ecaf4dd701df033429c}{left\+Rotate}} (\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$)
+\item 
+\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$ \mbox{\hyperlink{class_avl_tree_a156d81b7e3c6974c969876f48578e0d8}{remove}} (\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$, const int)
+\item 
+bool \mbox{\hyperlink{class_avl_tree_a7d2d75cb18efd7064a194e5eba60ceed}{search}} (const int) const
+\item 
+void \mbox{\hyperlink{class_avl_tree_acf5a845217dd1d6c060951c78eb4b3c0}{insert}} (const int)
+\item 
+void \mbox{\hyperlink{class_avl_tree_a5749646180a1cb2ec36c2830be294205}{insert}} (const int, \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$)
+\item 
+void \mbox{\hyperlink{class_avl_tree_ac8d4f996561392f0916caeaf48fac088}{remove}} (const int)
+\item 
+vector$<$ int $>$ $\ast$ \mbox{\hyperlink{class_avl_tree_a42a96ab786abdcd90a276681659de3cb}{preorder}} () const
+\item 
+vector$<$ int $>$ $\ast$ \mbox{\hyperlink{class_avl_tree_a5e48b6ecedf5fb5dfad0b5db9aa32254}{inorder}} () const
+\item 
+vector$<$ int $>$ $\ast$ \mbox{\hyperlink{class_avl_tree_abec8c49181cac2c7efe63a44c7da0f61}{postorder}} () const
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$ \mbox{\hyperlink{class_avl_tree_af08fafc721fec1c59bbade05b9115ebf}{root}} = nullptr
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$ \mbox{\hyperlink{class_avl_tree_a906cd455324e75af412f0e8dcb275721}{find\+Sym\+Succ}} (\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} $\ast$)
+\item 
+ostream \& \mbox{\hyperlink{class_avl_tree_ac676efc95b21ee681709baf45542c3a7}{operator$<$$<$}} (ostream \&, const \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}} \&)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class for our \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}}. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_avl_tree_ada89cb30925d36a56e3aab8768752468}\label{class_avl_tree_ada89cb30925d36a56e3aab8768752468}} 
+\index{Avl\+Tree@{Avl\+Tree}!````~Avl\+Tree@{$\sim$\+Avl\+Tree}}
+\index{````~Avl\+Tree@{$\sim$\+Avl\+Tree}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{$\sim$\+Avl\+Tree()}{~AvlTree()}}
+{\footnotesize\ttfamily Avl\+Tree\+::$\sim$\+Avl\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor for complete tree. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_avl_tree_a67133995c419d71beb98d55073ca4e50}\label{class_avl_tree_a67133995c419d71beb98d55073ca4e50}} 
+\index{Avl\+Tree@{Avl\+Tree}!calculate\+Balance@{calculate\+Balance}}
+\index{calculate\+Balance@{calculate\+Balance}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{calculate\+Balance()}{calculateBalance()}}
+{\footnotesize\ttfamily void Avl\+Tree\+::calculate\+Balance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$}]{n }\end{DoxyParamCaption})}
+
+Method to calculate the balance of a node and updates the balance factor of the node. 
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}}} & whose balance needs to be calculated. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_avl_tree_acc21a0655380662e65d92da67c559377}\label{class_avl_tree_acc21a0655380662e65d92da67c559377}} 
+\index{Avl\+Tree@{Avl\+Tree}!get\+Height@{get\+Height}}
+\index{get\+Height@{get\+Height}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{get\+Height()}{getHeight()}}
+{\footnotesize\ttfamily int Avl\+Tree\+::get\+Height (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$}]{n }\end{DoxyParamCaption})}
+
+Method to calculate the height of a node. 
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}}} & whose height is looked for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+integer heigt of the given node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_ab48adaa9a4e224e2aaeb9c3f7732f5ba}\label{class_avl_tree_ab48adaa9a4e224e2aaeb9c3f7732f5ba}} 
+\index{Avl\+Tree@{Avl\+Tree}!get\+Parent@{get\+Parent}}
+\index{get\+Parent@{get\+Parent}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{get\+Parent()}{getParent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$ Avl\+Tree\+::get\+Parent (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
+
+Method for getting the parent of any node in the \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}}. 
+\begin{DoxyParams}{Parameters}
+{\em key} & (as int) of the node whose parent is needed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} of the parent. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_af64d3251ddc4687a6431c444896d0676}\label{class_avl_tree_af64d3251ddc4687a6431c444896d0676}} 
+\index{Avl\+Tree@{Avl\+Tree}!get\+Parent@{get\+Parent}}
+\index{get\+Parent@{get\+Parent}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{get\+Parent()}{getParent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$ Avl\+Tree\+::get\+Parent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$}]{pnode,  }\item[{int}]{value }\end{DoxyParamCaption})}
+
+Method for getting the parent of any node in the \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}} (recursive). 
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}}} & from which part of the tree the parent is needed and the key (as int) of the \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} whose parent is looked for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} of the parent. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_a5e48b6ecedf5fb5dfad0b5db9aa32254}\label{class_avl_tree_a5e48b6ecedf5fb5dfad0b5db9aa32254}} 
+\index{Avl\+Tree@{Avl\+Tree}!inorder@{inorder}}
+\index{inorder@{inorder}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{inorder()}{inorder()}}
+{\footnotesize\ttfamily vector$<$ int $>$ $\ast$ Avl\+Tree\+::inorder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Inordered walkthrough. \begin{DoxyReturn}{Returns}
+Nullptr if root is nullptr, else go to following method. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_acf5a845217dd1d6c060951c78eb4b3c0}\label{class_avl_tree_acf5a845217dd1d6c060951c78eb4b3c0}} 
+\index{Avl\+Tree@{Avl\+Tree}!insert@{insert}}
+\index{insert@{insert}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Avl\+Tree\+::insert (\begin{DoxyParamCaption}\item[{const int}]{value }\end{DoxyParamCaption})}
+
+Insert a value in the tree. 
+\begin{DoxyParams}{Parameters}
+{\em value} & Integer value that has to be inserted. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_avl_tree_a5749646180a1cb2ec36c2830be294205}\label{class_avl_tree_a5749646180a1cb2ec36c2830be294205}} 
+\index{Avl\+Tree@{Avl\+Tree}!insert@{insert}}
+\index{insert@{insert}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Avl\+Tree\+::insert (\begin{DoxyParamCaption}\item[{const int}]{value,  }\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$}]{parent }\end{DoxyParamCaption})}
+
+Insert a given value in the tree. 
+\begin{DoxyParams}{Parameters}
+{\em value} & Integer value that has to be inserted. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_avl_tree_af8f43d1139179e490fffbdd03f7735ac}\label{class_avl_tree_af8f43d1139179e490fffbdd03f7735ac}} 
+\index{Avl\+Tree@{Avl\+Tree}!is\+Balanced@{is\+Balanced}}
+\index{is\+Balanced@{is\+Balanced}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{is\+Balanced()}{isBalanced()}}
+{\footnotesize\ttfamily bool Avl\+Tree\+::is\+Balanced (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Method to check, if the whole \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}} is balanced. \begin{DoxyReturn}{Returns}
+true, if the tree is balanced, false if any node is not in balance. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_a62de2a25d97e2da309696ea2eef3fec4}\label{class_avl_tree_a62de2a25d97e2da309696ea2eef3fec4}} 
+\index{Avl\+Tree@{Avl\+Tree}!is\+Empty@{is\+Empty}}
+\index{is\+Empty@{is\+Empty}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{is\+Empty()}{isEmpty()}}
+{\footnotesize\ttfamily bool Avl\+Tree\+::is\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Method to check if \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}} is empty. \begin{DoxyReturn}{Returns}
+true if tree is empty, false if tree is not empty. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_a571fee829f821ecaf4dd701df033429c}\label{class_avl_tree_a571fee829f821ecaf4dd701df033429c}} 
+\index{Avl\+Tree@{Avl\+Tree}!left\+Rotate@{left\+Rotate}}
+\index{left\+Rotate@{left\+Rotate}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{left\+Rotate()}{leftRotate()}}
+{\footnotesize\ttfamily void Avl\+Tree\+::left\+Rotate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$}]{n }\end{DoxyParamCaption})}
+
+Method to rotate the \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}} to the left to assure the balance. 
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}}} & which needs to be rotated. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_avl_tree_abec8c49181cac2c7efe63a44c7da0f61}\label{class_avl_tree_abec8c49181cac2c7efe63a44c7da0f61}} 
+\index{Avl\+Tree@{Avl\+Tree}!postorder@{postorder}}
+\index{postorder@{postorder}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{postorder()}{postorder()}}
+{\footnotesize\ttfamily vector$<$ int $>$ $\ast$ Avl\+Tree\+::postorder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Postordered walkthrough. \begin{DoxyReturn}{Returns}
+nullptr if root is nullptr, else go to following method. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_a42a96ab786abdcd90a276681659de3cb}\label{class_avl_tree_a42a96ab786abdcd90a276681659de3cb}} 
+\index{Avl\+Tree@{Avl\+Tree}!preorder@{preorder}}
+\index{preorder@{preorder}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{preorder()}{preorder()}}
+{\footnotesize\ttfamily vector$<$ int $>$ $\ast$ Avl\+Tree\+::preorder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Preordered walkthrough. \begin{DoxyReturn}{Returns}
+Nullptr if root is nullptr, else go to following method. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_a156d81b7e3c6974c969876f48578e0d8}\label{class_avl_tree_a156d81b7e3c6974c969876f48578e0d8}} 
+\index{Avl\+Tree@{Avl\+Tree}!remove@{remove}}
+\index{remove@{remove}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{remove()}{remove()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$ Avl\+Tree\+::remove (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$}]{n,  }\item[{const int}]{value }\end{DoxyParamCaption})}
+
+Method to remove a \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} from the \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}}. 
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}},from} & which the given key is looked for and the key of node to be removed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} which moved one stage up. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_ac8d4f996561392f0916caeaf48fac088}\label{class_avl_tree_ac8d4f996561392f0916caeaf48fac088}} 
+\index{Avl\+Tree@{Avl\+Tree}!remove@{remove}}
+\index{remove@{remove}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{remove()}{remove()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Avl\+Tree\+::remove (\begin{DoxyParamCaption}\item[{const int}]{value }\end{DoxyParamCaption})}
+
+Method to remove a \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} from the \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}}. 
+\begin{DoxyParams}{Parameters}
+{\em key} & of node to be removed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}} which moved one stage up. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_adeeb1c5c0d60556f57f775386fd023b4}\label{class_avl_tree_adeeb1c5c0d60556f57f775386fd023b4}} 
+\index{Avl\+Tree@{Avl\+Tree}!right\+Rotate@{right\+Rotate}}
+\index{right\+Rotate@{right\+Rotate}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{right\+Rotate()}{rightRotate()}}
+{\footnotesize\ttfamily void Avl\+Tree\+::right\+Rotate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$}]{n }\end{DoxyParamCaption})}
+
+Method to rotate the \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}} to the right to assure the balance. 
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}}} & which needs to be rotated. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_avl_tree_a7d2d75cb18efd7064a194e5eba60ceed}\label{class_avl_tree_a7d2d75cb18efd7064a194e5eba60ceed}} 
+\index{Avl\+Tree@{Avl\+Tree}!search@{search}}
+\index{search@{search}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{search()}{search()}}
+{\footnotesize\ttfamily bool Avl\+Tree\+::search (\begin{DoxyParamCaption}\item[{const int}]{value }\end{DoxyParamCaption}) const}
+
+Search given value in tree. 
+\begin{DoxyParams}{Parameters}
+{\em value} & Integer value that has to be searched. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false if tree is empty, go to following method if it is not empty. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_a82534eb18fc1294d06f769e4259cd6c2}\label{class_avl_tree_a82534eb18fc1294d06f769e4259cd6c2}} 
+\index{Avl\+Tree@{Avl\+Tree}!upin@{upin}}
+\index{upin@{upin}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{upin()}{upin()}}
+{\footnotesize\ttfamily void Avl\+Tree\+::upin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$}]{n }\end{DoxyParamCaption})}
+
+Method to update the balance factors of any changes after inserting a new node. 
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}}} & which has just been inserted. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_avl_tree_a6e78b2e17818b32ff2716e50b844cc6c}\label{class_avl_tree_a6e78b2e17818b32ff2716e50b844cc6c}} 
+\index{Avl\+Tree@{Avl\+Tree}!upout@{upout}}
+\index{upout@{upout}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{upout()}{upout()}}
+{\footnotesize\ttfamily void Avl\+Tree\+::upout (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$}]{n }\end{DoxyParamCaption})}
+
+Mathod to update the balance and rotate the tree if necessary, after a node has been removed. 
+\begin{DoxyParams}{Parameters}
+{\em root} & node from which the balance is updated. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{class_avl_tree_a906cd455324e75af412f0e8dcb275721}\label{class_avl_tree_a906cd455324e75af412f0e8dcb275721}} 
+\index{Avl\+Tree@{Avl\+Tree}!find\+Sym\+Succ@{find\+Sym\+Succ}}
+\index{find\+Sym\+Succ@{find\+Sym\+Succ}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{find\+Sym\+Succ}{findSymSucc}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}}$\ast$ find\+Sym\+Succ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_avl_tree_1_1_node}{Avl\+Tree\+::\+Node}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Method to find the symmetrical follower for a node which is about to be removed. 
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}}} & who is about to removed and whose symmetrical follower is needed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+symmetrical follower. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_avl_tree_ac676efc95b21ee681709baf45542c3a7}\label{class_avl_tree_ac676efc95b21ee681709baf45542c3a7}} 
+\index{Avl\+Tree@{Avl\+Tree}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{ostream \&}]{,  }\item[{const \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+To String method for tree. 
+\begin{DoxyParams}{Parameters}
+{\em os} & Stream that has to be converted. \\
+\hline
+{\em tree} & Tree that has to be printed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree in printed version. 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_avl_tree_af08fafc721fec1c59bbade05b9115ebf}\label{class_avl_tree_af08fafc721fec1c59bbade05b9115ebf}} 
+\index{Avl\+Tree@{Avl\+Tree}!root@{root}}
+\index{root@{root}!Avl\+Tree@{Avl\+Tree}}
+\subsubsection{\texorpdfstring{root}{root}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_avl_tree_1_1_node}{Node}}$\ast$ Avl\+Tree\+::root = nullptr\hspace{0.3cm}{\ttfamily [private]}}
+
+Root is the root of a new \mbox{\hyperlink{class_avl_tree}{Avl\+Tree}}. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Lisa/\+Desktop/\+Blatt 7 Algo/blatt-\/7-\/aufgabe-\/1-\/unnamed/avltree/Avl\+Tree.\+h\item 
+C\+:/\+Users/\+Lisa/\+Desktop/\+Blatt 7 Algo/blatt-\/7-\/aufgabe-\/1-\/unnamed/avltree/Avl\+Tree.\+cpp\end{DoxyCompactItemize}
